@@ -12,8 +12,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: const ColorScheme(
+          primary: Color(0xffEEEEEE),
+          onPrimary: Color(0xff395C98),
+          secondary: Color(0xffA9C1FF),
+          onSecondary: Color(0xff395C98),
+          error: Colors.red,
+          onError: Colors.red,
+          surface: Color(0xff395C98),
+          onSurface: Color(0xffEEEEEE),
+          brightness: Brightness.light,
+        ),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
