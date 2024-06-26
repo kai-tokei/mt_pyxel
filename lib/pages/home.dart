@@ -1,62 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+// components
+import 'package:mt_pyxel/components/common_appbar.dart';
 
-class AppBarLinkButton extends StatelessWidget {
-  const AppBarLinkButton({
-    super.key,
-    required this.onPressed,
-    required this.label,
-  });
-
-  final String label;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: onPressed,
-        child: Text(label,
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary, fontSize: 28)));
-  }
-}
-
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => HomeState();
+}
+
+class HomeState extends State<Home> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              TextButton(
-                  onPressed: () {},
-                  child: Text("Mt.Pyxel",
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSecondary,
-                          fontSize: 32))),
-              const SizedBox(width: 48),
-              AppBarLinkButton(onPressed: () {}, label: "About"),
-              const SizedBox(width: 16),
-              AppBarLinkButton(onPressed: () {}, label: "Play"),
-              const SizedBox(width: 16),
-              AppBarLinkButton(onPressed: () {}, label: "Learn"),
-              const SizedBox(width: 16),
-            ],
-          ),
-          backgroundColor: Theme.of(context).colorScheme.secondary,
+        appBar: CommonAppBar(
+          onAbout: () {},
+          onPlay: () {},
+          onLearn: () {},
+          onUserName: () {},
         ),
-        body: Center(
-            child: Column(
+        body: SingleChildScrollView(
+            child: Center(
+                child: Column(
           children: [
+            const SizedBox(height: 24),
             Container(
+                margin: const EdgeInsets.all(8),
                 width: 512,
                 height: 257,
-                child: Image(
-                  image: AssetImage("images/logo.png"),
-                ))
+                child: const Image(image: AssetImage("images/logo.png"))),
+            const SizedBox(height: 24),
+            SizedBox(
+                width: 728,
+                child: Divider(
+                    thickness: 3,
+                    color: Theme.of(context).colorScheme.secondary)),
           ],
-        )));
+        ))));
   }
 }
