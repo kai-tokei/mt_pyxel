@@ -30,7 +30,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSecondary,
                       fontSize: 32))),
-          const SizedBox(width: 8),
+          const SizedBox(width: 4),
           AppBarLinkButton(onPressed: onAbout, label: "About"),
           AppBarLinkButton(onPressed: onPlay, label: "Play"),
           AppBarLinkButton(onPressed: onLearn, label: "Learn"),
@@ -40,7 +40,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Text(userName,
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSecondary,
-                      fontSize: 32))),
+                      fontSize: 28))),
         ],
       )),
       backgroundColor: Theme.of(context).colorScheme.secondary,

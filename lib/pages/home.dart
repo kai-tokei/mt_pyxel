@@ -23,12 +23,11 @@ class HomeState extends State<Home> {
   ];
   List<String> sortCategories = [
     "Popular",
-    "Mose Recent",
+    "Most Recent",
   ];
   int categoryIndex = 0;
   int sortCategoryIndex = 0;
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CommonAppBar(
@@ -52,7 +51,7 @@ class HomeState extends State<Home> {
                 categories: categories, categoryIndex: categoryIndex),
             const SizedBox(height: 16),
             SizedBox(
-                width: 728,
+                width: 800,
                 child: Divider(
                     thickness: 3,
                     color: Theme.of(context).colorScheme.secondary)),

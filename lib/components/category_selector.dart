@@ -23,35 +23,40 @@ class CategorySelector extends StatefulWidget {
 class CategorySelectorState extends State<CategorySelector> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: widget.mainAxisAlignment,
-      children: [
-        for (int i = 0; i < widget.categories.length; i++)
-          Container(
-              padding: EdgeInsets.all(widget.categorySize),
-              color: i == widget.categoryIndex
-                  ? Theme.of(context).primaryColor
-                  : Theme.of(context).colorScheme.onPrimary,
-              child: TextButton(
-                onPressed: () {
-                  setState(() {
-                    widget.categoryIndex = i;
-                  });
-                },
-                style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0)),
-                ),
-                child: Text(
-                  widget.categories[i],
-                  style: TextStyle(
-                      fontSize: widget.fontSize,
-                      color: i == widget.categoryIndex
-                          ? Theme.of(context).colorScheme.onPrimary
-                          : Theme.of(context).primaryColor),
-                ),
-              )),
-      ],
-    );
+    return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: widget.mainAxisAlignment,
+          children: [
+            for (int i = 0; i < widget.categories.length; i++)
+              Row(children: [
+                const SizedBox(width: 8),
+                Container(
+                    padding: EdgeInsets.all(widget.categorySize),
+                    color: i == widget.categoryIndex
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).colorScheme.onPrimary,
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          widget.categoryIndex = i;
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(0)),
+                      ),
+                      child: Text(
+                        widget.categories[i],
+                        style: TextStyle(
+                            fontSize: widget.fontSize,
+                            color: i == widget.categoryIndex
+                                ? Theme.of(context).colorScheme.onPrimary
+                                : Theme.of(context).primaryColor),
+                      ),
+                    ))
+              ]),
+          ],
+        ));
   }
 }
