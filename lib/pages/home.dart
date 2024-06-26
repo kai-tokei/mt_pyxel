@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 // components
 import 'package:mt_pyxel/components/common_appbar.dart';
 import 'package:mt_pyxel/components/category_selector.dart';
+import 'package:mt_pyxel/components/common_searchbox.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -58,13 +59,17 @@ class HomeState extends State<Home> {
             const SizedBox(height: 16),
             SizedBox(
                 width: 718,
-                child: CategorySelector(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  categories: sortCategories,
-                  categoryIndex: sortCategoryIndex,
-                  fontSize: 24,
-                  categorySize: 4,
-                )),
+                child: Row(children: [
+                  CategorySelector(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    categories: sortCategories,
+                    categoryIndex: sortCategoryIndex,
+                    fontSize: 24,
+                    categorySize: 4,
+                  ),
+                  const Expanded(child: SizedBox()),
+                  CommonSearchBox(onChanged: (v) {})
+                ])),
           ],
         ))));
   }
