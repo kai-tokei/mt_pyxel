@@ -20,7 +20,12 @@ class HomeState extends State<Home> {
     "Musics",
     "Users"
   ];
+  List<String> sortCategories = [
+    "Popular",
+    "Mose Recent",
+  ];
   int categoryIndex = 0;
+  int sortCategoryIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +55,16 @@ class HomeState extends State<Home> {
                 child: Divider(
                     thickness: 3,
                     color: Theme.of(context).colorScheme.secondary)),
+            const SizedBox(height: 16),
+            SizedBox(
+                width: 718,
+                child: CategorySelector(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  categories: sortCategories,
+                  categoryIndex: sortCategoryIndex,
+                  fontSize: 24,
+                  categorySize: 4,
+                )),
           ],
         ))));
   }

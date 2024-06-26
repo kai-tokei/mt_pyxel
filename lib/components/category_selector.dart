@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
 class CategorySelector extends StatefulWidget {
-  CategorySelector(
-      {super.key, required this.categories, required this.categoryIndex});
+  CategorySelector({
+    super.key,
+    required this.categories,
+    required this.categoryIndex,
+    this.categorySize = 8,
+    this.fontSize = 32,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+  });
 
   final List<String> categories;
+  final MainAxisAlignment mainAxisAlignment;
+  final double categorySize;
+  final double fontSize;
   int categoryIndex;
 
   @override
@@ -15,11 +24,11 @@ class CategorySelectorState extends State<CategorySelector> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: widget.mainAxisAlignment,
       children: [
         for (int i = 0; i < widget.categories.length; i++)
           Container(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(widget.categorySize),
               color: i == widget.categoryIndex
                   ? Theme.of(context).primaryColor
                   : Theme.of(context).colorScheme.onPrimary,
@@ -36,7 +45,7 @@ class CategorySelectorState extends State<CategorySelector> {
                 child: Text(
                   widget.categories[i],
                   style: TextStyle(
-                      fontSize: 32,
+                      fontSize: widget.fontSize,
                       color: i == widget.categoryIndex
                           ? Theme.of(context).colorScheme.onPrimary
                           : Theme.of(context).primaryColor),
