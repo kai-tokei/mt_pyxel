@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 // components
 import 'package:mt_pyxel/components/common_appbar.dart';
+import 'package:mt_pyxel/components/category_selector.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -41,36 +42,8 @@ class HomeState extends State<Home> {
                 height: 257,
                 child: const Image(image: AssetImage("images/logo.png"))),
             const SizedBox(height: 64),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int i = 0; i < categories.length; i++)
-                  Container(
-                      padding: const EdgeInsets.all(12),
-                      color: i == categoryIndex
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).colorScheme.onPrimary,
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            categoryIndex = i;
-                          });
-                        },
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0)),
-                        ),
-                        child: Text(
-                          categories[i],
-                          style: TextStyle(
-                              fontSize: 32,
-                              color: i == categoryIndex
-                                  ? Theme.of(context).colorScheme.onPrimary
-                                  : Theme.of(context).primaryColor),
-                        ),
-                      )),
-              ],
-            ),
+            CategorySelector(
+                categories: categories, categoryIndex: categoryIndex),
             const SizedBox(height: 16),
             SizedBox(
                 width: 728,
