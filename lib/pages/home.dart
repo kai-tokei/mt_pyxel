@@ -51,13 +51,13 @@ class HomeState extends State<Home> {
                 categories: categories, categoryIndex: categoryIndex),
             const SizedBox(height: 16),
             SizedBox(
-                width: 800,
+                width: 1000,
                 child: Divider(
                     thickness: 3,
                     color: Theme.of(context).colorScheme.secondary)),
             const SizedBox(height: 16),
             SizedBox(
-                width: 718,
+                width: 950,
                 child: Row(children: [
                   CategorySelector(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -69,6 +69,39 @@ class HomeState extends State<Home> {
                   const Expanded(child: SizedBox()),
                   CommonSearchBox(onChanged: (v) {})
                 ])),
+            Container(
+              margin: const EdgeInsets.only(top: 64),
+              padding: const EdgeInsets.all(16),
+              height: 180,
+              width: MediaQuery.of(context).size.width,
+              color: const Color(0xff2B335F),
+              child: Stack(
+                children: [
+                  Align(
+                      alignment: Alignment.topLeft,
+                      child: Text("Mt.Pyxel",
+                          style: TextStyle(
+                              fontSize: 38,
+                              color: Theme.of(context).colorScheme.secondary))),
+                  Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text("(C) 2024 KaiTokei",
+                          style: TextStyle(
+                              fontSize: 32,
+                              color: Theme.of(context).colorScheme.secondary))),
+                  Align(
+                      alignment: Alignment.bottomRight,
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Text("GitHub",
+                              style: TextStyle(
+                                  fontSize: 32,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondary)))),
+                ],
+              ),
+            )
           ],
         ))));
   }
