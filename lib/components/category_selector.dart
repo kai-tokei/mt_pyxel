@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class CategorySelector extends StatefulWidget {
   CategorySelector({
     super.key,
     required this.categories,
     required this.categoryIndex,
+    required this.onPressed,
     this.categorySize = 8,
     this.fontSize = 32,
     this.mainAxisAlignment = MainAxisAlignment.center,
@@ -12,6 +14,7 @@ class CategorySelector extends StatefulWidget {
 
   final List<String> categories;
   final MainAxisAlignment mainAxisAlignment;
+  final Function(int)? onPressed;
   final double categorySize;
   final double fontSize;
   int categoryIndex;
@@ -37,11 +40,10 @@ class CategorySelectorState extends State<CategorySelector> {
                         ? Theme.of(context).primaryColor
                         : Theme.of(context).colorScheme.onPrimary,
                     child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          widget.categoryIndex = i;
-                        });
-                      },
+                      onPressed: () => setState(() {
+                        widget.categoryIndex = i;
+                        widget.onPressed!(i);
+                      }),
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(0)),
