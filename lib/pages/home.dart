@@ -5,6 +5,7 @@ import 'package:mt_pyxel/components/common_appbar.dart';
 import 'package:mt_pyxel/components/common_bottombar.dart';
 import 'package:mt_pyxel/components/category_selector.dart';
 import 'package:mt_pyxel/components/common_searchbox.dart';
+import 'package:mt_pyxel/components/content.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -108,9 +109,19 @@ class HomeState extends State<Home> {
             SizedBox(
                 width: 950,
                 child: Wrap(
-                  runSpacing: 8,
+                  runSpacing: 16,
                   spacing: 45,
-                  children: [for (int i = 0; i < 10; i++) ContentBox()],
+                  children: [
+                    for (int i = 0; i < 10; i++)
+                      ContentBox(
+                        image: Image.asset("images/gameview-sample.png",
+                            width: 281),
+                        title: "Jump game with Pyxel resource file",
+                        likes: 132,
+                        comments: 12,
+                        onPressed: () {},
+                      )
+                  ],
                 )),
             const SizedBox(height: 64),
             CategorySelector(
@@ -124,36 +135,5 @@ class HomeState extends State<Home> {
             const CommonBottomBar()
           ],
         ))));
-  }
-}
-
-class ContentBox extends StatelessWidget {
-  const ContentBox({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-        splashColor: Colors.transparent,
-        onTap: () {},
-        child: SizedBox(
-            width: 280,
-            height: 350,
-            child: Column(
-              children: [
-                Image.asset("images/gameview-sample.png", width: 281),
-                Text(
-                  "Jump game with Pyxel resource file",
-                  style: const TextStyle(fontSize: 28),
-                ),
-                Row(
-                  children: [
-                    Text("by Kitao",
-                        style: TextStyle(
-                            fontSize: 22,
-                            color: Theme.of(context).colorScheme.secondary))
-                  ],
-                ),
-              ],
-            )));
   }
 }
