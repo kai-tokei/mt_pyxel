@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:mt_pyxel/components/common_appbar.dart';
 import 'package:mt_pyxel/components/common_bottombar.dart';
 
-class PostPage extends StatefulWidget {
-  const PostPage({super.key});
+class UserSettingsPage extends StatefulWidget {
+  const UserSettingsPage({super.key});
 
   @override
-  State<PostPage> createState() => PostPageState();
+  State<UserSettingsPage> createState() => UserSettingsPageState();
 }
 
-class PostPageState extends State<PostPage> {
+class UserSettingsPageState extends State<UserSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
