@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 // components
 import 'package:mt_pyxel/components/common_appbar.dart';
+import 'package:mt_pyxel/components/common_bottombar.dart';
 import 'package:mt_pyxel/components/category_selector.dart';
 import 'package:mt_pyxel/components/common_searchbox.dart';
 
@@ -21,13 +22,26 @@ class HomeState extends State<Home> {
     "Musics",
     "Users"
   ];
+
   List<String> sortCategories = [
     "Popular",
     "Most Recent",
   ];
+
   int categoryIndex = 0;
   int sortCategoryIndex = 0;
+  int pageIndex = 0;
+  int pageSize = 5;
 
+  List<String> generatePageList(int pageSize) {
+    List<String> pageList = [];
+    for (int i = 0; i < pageSize; i++) {
+      pageList.add(i.toString());
+    }
+    return pageList;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CommonAppBar(
@@ -69,39 +83,20 @@ class HomeState extends State<Home> {
                   const Expanded(child: SizedBox()),
                   CommonSearchBox(onChanged: (v) {})
                 ])),
-            Container(
-              margin: const EdgeInsets.only(top: 64),
-              padding: const EdgeInsets.all(16),
-              height: 180,
-              width: MediaQuery.of(context).size.width,
-              color: const Color(0xff2B335F),
-              child: Stack(
-                children: [
-                  Align(
-                      alignment: Alignment.topLeft,
-                      child: Text("Mt.Pyxel",
-                          style: TextStyle(
-                              fontSize: 38,
-                              color: Theme.of(context).colorScheme.secondary))),
-                  Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Text("(C) 2024 KaiTokei",
-                          style: TextStyle(
-                              fontSize: 32,
-                              color: Theme.of(context).colorScheme.secondary))),
-                  Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Text("GitHub",
-                              style: TextStyle(
-                                  fontSize: 32,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondary)))),
-                ],
-              ),
-            )
+            const SizedBox(height: 64),
+            CategorySelector(
+                categorySize: 0,
+                fontSize: 24,
+                categories: generatePageList(pageSize),
+                categoryIndex: pageIndex),
+            const SizedBox(height: 64),
+            const SizedBox(height: 64),
+            CategorySelector(
+                categorySize: 0,
+                fontSize: 24,
+                categories: generatePageList(pageSize),
+                categoryIndex: pageIndex),
+            const CommonBottomBar()
           ],
         ))));
   }
