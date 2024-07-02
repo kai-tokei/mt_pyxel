@@ -6,7 +6,7 @@ class CommonBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 64),
+      margin: const EdgeInsets.only(top: 16),
       padding: const EdgeInsets.all(16),
       height: 180,
       width: MediaQuery.of(context).size.width,
