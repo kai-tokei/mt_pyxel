@@ -30,7 +30,7 @@ class PostPageState extends State<PostPage> {
         const PageTitle(title: "Post Your Project"),
         const SizedBox(height: 84),
 
-        //
+        // Thumbnail
         const Text("Thumbnail", style: TextStyle(fontSize: 36)),
         const SizedBox(height: 8),
         InkWell(
@@ -48,7 +48,7 @@ class PostPageState extends State<PostPage> {
             )),
         const SizedBox(height: 32),
 
-        //
+        // Project Name
         const Text("Project Name", style: TextStyle(fontSize: 36)),
         const SizedBox(height: 8),
         SizedBox(
@@ -69,7 +69,7 @@ class PostPageState extends State<PostPage> {
                         borderRadius: BorderRadius.circular(0))))),
         const SizedBox(height: 32),
 
-        //
+        // Execution Link
         const Text("Execution Link", style: TextStyle(fontSize: 36)),
         const SizedBox(height: 8),
         SizedBox(
@@ -90,7 +90,7 @@ class PostPageState extends State<PostPage> {
                         borderRadius: BorderRadius.circular(0))))),
         const SizedBox(height: 32),
 
-        //
+        // Description
         const Text("Description", style: TextStyle(fontSize: 36)),
         const SizedBox(height: 8),
         SizedBox(
@@ -113,7 +113,7 @@ class PostPageState extends State<PostPage> {
                         borderRadius: BorderRadius.circular(0))))),
         const SizedBox(height: 32),
 
-        //
+        // Category
         const Text("Category", style: TextStyle(fontSize: 36)),
         const SizedBox(height: 8),
         CategorySelector(
@@ -122,6 +122,21 @@ class PostPageState extends State<PostPage> {
                 }),
             categories: categories,
             categoryIndex: categoryIndex),
+        const SizedBox(height: 32),
+
+        const SizedBox(height: 32),
+        ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0)),
+            ),
+            child: Text("POST",
+                style: TextStyle(
+                    fontSize: 48,
+                    color: Theme.of(context).colorScheme.onPrimary))),
         const SizedBox(height: 32),
       ],
     );
