@@ -82,6 +82,7 @@ class HomeState extends State<Home> {
             ])),
         const SizedBox(height: 64),
 
+        // ここからコンテンツ
         CategorySelector(
             onPressed: (v) => setState(() {
                   pageIndex = v;
@@ -91,8 +92,8 @@ class HomeState extends State<Home> {
             categories: generatePageList(pageSize),
             categoryIndex: pageIndex),
         const SizedBox(height: 64),
+        // ここまでコンテンツ
 
-        // ここからコンテンツ
         SizedBox(
             width: 950,
             child: Wrap(
@@ -110,8 +111,6 @@ class HomeState extends State<Home> {
                   )
               ],
             )),
-        // ここまでコンテンツ
-
         const SizedBox(height: 64),
         CategorySelector(
             onPressed: (v) => setState(() {

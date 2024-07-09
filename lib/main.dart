@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // pages
 import 'package:mt_pyxel/pages/home.dart';
 import 'package:mt_pyxel/pages/content_page.dart';
+import 'package:mt_pyxel/pages/post.dart';
 import 'package:mt_pyxel/components/common_appbar.dart';
 import 'package:mt_pyxel/components/common_bottombar.dart';
 
@@ -45,19 +46,21 @@ class MtPyxel extends StatelessWidget {
               child: Center(
                   child: Column(
             children: [
-              ContentPage(
-                title: "Simple Application",
-                author: "by Kitao",
-                image: Image.asset(
-                  "images/gameview-sample.png",
-                  width: 650,
-                  fit: BoxFit.contain,
-                ),
-                likes: 123,
-                comments: 3,
-                desc: "This is the simplest Project",
-              ),
+              //ContentPage(
+              //  title: "Simple Application",
+              //  author: "by Kitao",
+              //  image: Image.asset(
+              //    "images/gameview-sample.png",
+              //    width: 650,
+              //    fit: BoxFit.contain,
+              //  ),
+              //  likes: 123,
+              //  comments: 3,
+              //  desc: "This is the simplest Project",
+              //),
               //Home(),
+              PostPage(),
+
               const CommonBottomBar(),
             ],
           )))),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 // components
 import 'package:mt_pyxel/components/comment.dart';
+import 'package:mt_pyxel/components/page_title.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({
