@@ -133,7 +133,7 @@ class PostPageState extends State<PostPage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0)),
             ),
-            child: Text("POST",
+            child: Text("  POST  ",
                 style: TextStyle(
                     fontSize: 48,
                     color: Theme.of(context).colorScheme.onPrimary))),
