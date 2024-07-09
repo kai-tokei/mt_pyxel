@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // components
-import 'package:mt_pyxel/components/common_appbar.dart';
-import 'package:mt_pyxel/components/common_bottombar.dart';
+import 'package:mt_pyxel/components/page_title.dart';
+import 'package:mt_pyxel/components/category_selector.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
@@ -11,21 +11,119 @@ class PostPage extends StatefulWidget {
 }
 
 class PostPageState extends State<PostPage> {
+  List<String> categories = [
+    "Games",
+    "Tech",
+    "Tools",
+    "Paints",
+    "Musics",
+    "Users"
+  ];
+
+  int categoryIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(
-        onAbout: () {},
-        onPlay: () {},
-        onLearn: () {},
-        onUserName: () {},
-      ),
-      body: Center(
-          child: SingleChildScrollView(
-              child: Column(
-        children: [],
-      ))),
-      bottomNavigationBar: const CommonBottomBar(),
+    return Column(
+      children: [
+        const SizedBox(height: 64),
+        const PageTitle(title: "Post Your Project"),
+        const SizedBox(height: 84),
+
+        //
+        const Text("Thumbnail", style: TextStyle(fontSize: 36)),
+        const SizedBox(height: 8),
+        InkWell(
+            splashColor: Colors.transparent,
+            onTap: () {},
+            child: Container(
+              width: 400,
+              height: 300,
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: Theme.of(context).colorScheme.secondary, width: 2.5),
+                borderRadius: BorderRadius.circular(0),
+              ),
+              child: Image.asset("images/upload.png", height: 32),
+            )),
+        const SizedBox(height: 32),
+
+        //
+        const Text("Project Name", style: TextStyle(fontSize: 36)),
+        const SizedBox(height: 8),
+        SizedBox(
+            width: 400,
+            child: TextField(
+                style: const TextStyle(fontSize: 20),
+                maxLength: 64,
+                decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 2.5,
+                            color: Theme.of(context).colorScheme.secondary),
+                        borderRadius: BorderRadius.circular(0)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 3,
+                            color: Theme.of(context).colorScheme.secondary),
+                        borderRadius: BorderRadius.circular(0))))),
+        const SizedBox(height: 32),
+
+        //
+        const Text("Execution Link", style: TextStyle(fontSize: 36)),
+        const SizedBox(height: 8),
+        SizedBox(
+            width: 400,
+            child: TextField(
+                style: const TextStyle(fontSize: 20),
+                maxLength: 512,
+                decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 2.5,
+                            color: Theme.of(context).colorScheme.secondary),
+                        borderRadius: BorderRadius.circular(0)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 3,
+                            color: Theme.of(context).colorScheme.secondary),
+                        borderRadius: BorderRadius.circular(0))))),
+        const SizedBox(height: 32),
+
+        //
+        const Text("Description", style: TextStyle(fontSize: 36)),
+        const SizedBox(height: 8),
+        SizedBox(
+            width: 600,
+            child: TextField(
+                style: const TextStyle(fontSize: 22),
+                keyboardType: TextInputType.multiline,
+                maxLines: 8,
+                maxLength: 3000,
+                decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 3,
+                            color: Theme.of(context).colorScheme.secondary),
+                        borderRadius: BorderRadius.circular(0)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 3,
+                            color: Theme.of(context).colorScheme.secondary),
+                        borderRadius: BorderRadius.circular(0))))),
+        const SizedBox(height: 32),
+
+        //
+        const Text("Category", style: TextStyle(fontSize: 36)),
+        const SizedBox(height: 8),
+        CategorySelector(
+            onPressed: (v) => setState(() {
+                  categoryIndex = v;
+                }),
+            categories: categories,
+            categoryIndex: categoryIndex),
+        const SizedBox(height: 32),
+      ],
     );
   }
 }
