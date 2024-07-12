@@ -4,9 +4,9 @@ import 'package:mt_pyxel/pages/home.dart';
 import 'package:mt_pyxel/pages/content_page.dart';
 import 'package:mt_pyxel/pages/post.dart';
 import 'package:mt_pyxel/pages/user_profile.dart';
+import 'package:mt_pyxel/pages/user_settings.dart';
 import 'package:mt_pyxel/components/common_appbar.dart';
 import 'package:mt_pyxel/components/common_bottombar.dart';
-import 'package:mt_pyxel/pages/user_settings.dart';
 
 void main() {
   runApp(const MtPyxel());
@@ -19,7 +19,7 @@ class MtPyxel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Mt.Pyxel',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'k8x12',
@@ -62,8 +62,8 @@ class MtPyxel extends StatelessWidget {
               //),
               //Home(),
               //PostPage(),
-              UserSettingsPage(),
-
+              //UserSettingsPage(),
+              UserProfilePage(),
               const CommonBottomBar(),
             ],
           )))),

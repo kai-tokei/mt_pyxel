@@ -120,6 +120,13 @@ class HomeState extends State<Home> {
             fontSize: 24,
             categories: generatePageList(pageSize),
             categoryIndex: pageIndex),
+        const SizedBox(height: 64),
+        CategorySelector(
+            onPressed: (v) => setState(() {
+                  categoryIndex = v;
+                }),
+            categories: categories,
+            categoryIndex: categoryIndex),
       ],
     );
   }
