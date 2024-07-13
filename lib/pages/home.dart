@@ -63,6 +63,7 @@ class HomeState extends State<Home> {
             width: 1000,
             child: Divider(
                 thickness: 3, color: Theme.of(context).colorScheme.secondary)),
+
         const SizedBox(height: 16),
         SizedBox(
             width: 950,
@@ -127,6 +128,7 @@ class HomeState extends State<Home> {
                 }),
             categories: categories,
             categoryIndex: categoryIndex),
+        const SizedBox(height: 64),
       ],
     );
   }
