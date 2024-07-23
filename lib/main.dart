@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 // pages
-import 'package:mt_pyxel/pages/home.dart';
-import 'package:mt_pyxel/pages/content_page.dart';
-import 'package:mt_pyxel/pages/post.dart';
-import 'package:mt_pyxel/pages/user_profile.dart';
-import 'package:mt_pyxel/pages/user_settings.dart';
-import 'package:mt_pyxel/components/common_appbar.dart';
-import 'package:mt_pyxel/components/common_bottombar.dart';
+//import 'package:mt_pyxel/pages/home.dart';
+//import 'package:mt_pyxel/pages/content_page.dart';
+//import 'package:mt_pyxel/pages/post.dart';
+//import 'package:mt_pyxel/pages/user_profile.dart';
+//import 'package:mt_pyxel/pages/user_settings.dart';
+//import 'package:mt_pyxel/components/common_appbar.dart';
+//import 'package:mt_pyxel/components/common_bottombar.dart';
 import 'package:mt_pyxel/router.dart';
 
 void main() {
