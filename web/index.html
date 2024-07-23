@@ -19,6 +19,8 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
+  <meta name="google-signin-client_id"
+    content="35208866682-urig6pilgi2150qnh604g7h5erra716i.apps.googleusercontent.com" />
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,8 +33,32 @@
 
   <title>mt_pyxel</title>
   <link rel="manifest" href="manifest.json">
+
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBP_r-z3PJsfy50wdrzTEgfEsnQMnp6SjE",
+      authDomain: "mtpyxel.firebaseapp.com",
+      projectId: "mtpyxel",
+      storageBucket: "mtpyxel.appspot.com",
+      messagingSenderId: "594900755387",
+      appId: "1:594900755387:web:9e0f28ef5a501cfc8d1a9e",
+      measurementId: "G-HRS7FFR04M"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
 </body>
 </html>
