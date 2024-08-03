@@ -1,4 +1,7 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:go_router/go_router.dart';
 // components
 import 'package:mt_pyxel/components/category_selector.dart';
@@ -46,6 +49,8 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final postsReference = FirebaseFirestore.instance.collection('posts');
+
     return Scaffold(
         appBar: CommonAppBar(
             onAbout: () {}, onPost: () {}, onLearn: () {}, onUserName: () {}),
