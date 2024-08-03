@@ -16,7 +16,6 @@ final goRouter = GoRouter(initialLocation: '/home', routes: [
   GoRoute(
       path: '/home',
       builder: (context, state) {
-        //return MaterialPage(key: state.pageKey, child: const Home());
         return Scaffold(
             appBar: CommonAppBar(
               onAbout: () {
