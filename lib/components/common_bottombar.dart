@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:html' as html;
 
 class CommonBottomBar extends StatelessWidget {
   const CommonBottomBar({super.key});
@@ -28,7 +29,8 @@ class CommonBottomBar extends StatelessWidget {
           Align(
               alignment: Alignment.bottomRight,
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => html.window
+                      .open('https://github.com/kai-tokei/mt_pyxel', 'new tab'),
                   child: Text("GitHub",
                       style: TextStyle(
                           fontSize: 32,

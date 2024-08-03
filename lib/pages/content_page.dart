@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // components
-import 'package:mt_pyxel/components/comment.dart';
+// import 'package:mt_pyxel/components/comment.dart';
+import 'package:mt_pyxel/components/common_bottombar.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({
@@ -9,12 +10,14 @@ class ContentPage extends StatefulWidget {
     required this.author,
     required this.image,
     required this.likes,
+    required this.excuteLink,
     required this.comments,
     required this.desc,
   });
 
   final String title;
   final String author;
+  final String excuteLink;
   final Widget image;
   final int likes;
   final int comments;
@@ -27,7 +30,10 @@ class ContentPage extends StatefulWidget {
 class ContentPageState extends State<ContentPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return Scaffold(
+        body: SingleChildScrollView(
+            child: Center(
+                child: Column(children: [
       const SizedBox(height: 64),
       Divider(thickness: 2.5, color: Theme.of(context).colorScheme.secondary),
       Row(
@@ -45,11 +51,6 @@ class ContentPageState extends State<ContentPage> {
       Divider(thickness: 2.5, color: Theme.of(context).colorScheme.secondary),
       const SizedBox(height: 64),
       widget.image,
-      //Image.asset(
-      //  "images/gameview-sample.png",
-      //  width: 650,
-      //  fit: BoxFit.contain,
-      //),
       SizedBox(
         height: 84,
         width: 600,
@@ -69,64 +70,65 @@ class ContentPageState extends State<ContentPage> {
       SizedBox(
           width: 680,
           child: Text(widget.desc, style: const TextStyle(fontSize: 24))),
-      const SizedBox(height: 32),
-      SizedBox(
-        width: 1000,
-        child: Column(
-          children: [
-            Divider(
-                thickness: 2.5, color: Theme.of(context).colorScheme.secondary),
-            const Row(
-              children: [
-                SizedBox(width: 112),
-                Text("Comments", style: TextStyle(fontSize: 48))
-              ],
-            ),
-            Divider(
-                thickness: 2.5, color: Theme.of(context).colorScheme.secondary)
-          ],
-        ),
-      ),
       const SizedBox(height: 64),
-      SizedBox(
-          width: 630,
-          child: Column(
-            children: [
-              TextField(
-                  style: const TextStyle(fontSize: 22),
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 5,
-                  maxLength: 500,
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 3,
-                              color: Theme.of(context).colorScheme.secondary),
-                          borderRadius: BorderRadius.circular(0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 3,
-                              color: Theme.of(context).colorScheme.secondary),
-                          borderRadius: BorderRadius.circular(0)))),
-              Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(backgroundColor: Colors.white),
-                  child: Text("Comment",
-                      style: TextStyle(
-                          fontSize: 24,
-                          color: Theme.of(context).colorScheme.onPrimary)),
-                )
-              ]),
-            ],
-          )),
-      const SizedBox(height: 32),
-      Comment(
-          image: Image.asset("images/gameview-sample.png",
-              width: 138, height: 138),
-          username: 'user1',
-          date: '2024/8/15',
-          comment: "This is the first comment."),
-    ]);
+      const CommonBottomBar()
+      //SizedBox(
+      //  width: 1000,
+      //  child: Column(
+      //    children: [
+      //      Divider(
+      //          thickness: 2.5, color: Theme.of(context).colorScheme.secondary),
+      //      const Row(
+      //        children: [
+      //          SizedBox(width: 112),
+      //          Text("Comments", style: TextStyle(fontSize: 48))
+      //        ],
+      //      ),
+      //      Divider(
+      //          thickness: 2.5, color: Theme.of(context).colorScheme.secondary)
+      //    ],
+      //  ),
+      //),
+      //const SizedBox(height: 64),
+      //SizedBox(
+      //    width: 630,
+      //    child: Column(
+      //      children: [
+      //        TextField(
+      //            style: const TextStyle(fontSize: 22),
+      //            keyboardType: TextInputType.multiline,
+      //            maxLines: 5,
+      //            maxLength: 500,
+      //            decoration: InputDecoration(
+      //                focusedBorder: OutlineInputBorder(
+      //                    borderSide: BorderSide(
+      //                        width: 3,
+      //                        color: Theme.of(context).colorScheme.secondary),
+      //                    borderRadius: BorderRadius.circular(0)),
+      //                enabledBorder: OutlineInputBorder(
+      //                    borderSide: BorderSide(
+      //                        width: 3,
+      //                        color: Theme.of(context).colorScheme.secondary),
+      //                    borderRadius: BorderRadius.circular(0)))),
+      //        Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      //          TextButton(
+      //            onPressed: () {},
+      //            style: TextButton.styleFrom(backgroundColor: Colors.white),
+      //            child: Text("Comment",
+      //                style: TextStyle(
+      //                    fontSize: 24,
+      //                    color: Theme.of(context).colorScheme.onPrimary)),
+      //          )
+      //        ]),
+      //      ],
+      //    )),
+      //const SizedBox(height: 32),
+      //Comment(
+      //    image: Image.asset("images/gameview-sample.png",
+      //        width: 138, height: 138),
+      //    username: 'user1',
+      //    date: '2024/8/15',
+      //    comment: "This is the first comment."),
+    ]))));
   }
 }
