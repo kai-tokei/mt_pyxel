@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:go_router/go_router.dart';
@@ -47,13 +45,49 @@ class HomeState extends State<Home> {
     return pageList;
   }
 
+  Future<void> fetchAllPosts() async {
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    try {
+      QuerySnapshot querySnapshot = await firestore.collection('posts').get();
+
+      for (var doc in querySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+        String author = data['author'] ?? '';
+        String desc = data['desc'] ?? '';
+        String executeLink =
+            data['excutelink'] ?? ''; // Note: typo in field name is preserved
+        String image = data['image'] ?? '';
+        int likes = data['likes'] ?? 0;
+        String title = data['title'] ?? '';
+        String kind = data['kind'] ?? '';
+
+        debugPrint('Document ID: ${doc.id}');
+        debugPrint('Author: $author');
+        debugPrint('Description: $desc');
+        debugPrint('Execute Link: $executeLink');
+        debugPrint('Image: $image');
+        debugPrint('Likes: $likes');
+        debugPrint('Title: $title');
+        debugPrint('Kind: $kind');
+        debugPrint('-------------------');
+      }
+    } catch (e) {
+      debugPrint('Error fetching documents: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final postsReference = FirebaseFirestore.instance.collection('posts');
-
     return Scaffold(
         appBar: CommonAppBar(
-            onAbout: () {}, onPost: () {}, onLearn: () {}, onUserName: () {}),
+            onAbout: () async {
+              fetchAllPosts();
+            },
+            onPost: () {},
+            onLearn: () {},
+            onUserName: () {}),
         body: Center(
             child: SingleChildScrollView(
                 child: Column(
@@ -96,15 +130,6 @@ class HomeState extends State<Home> {
                   CommonSearchBox(onChanged: (v) {})
                 ])),
             const SizedBox(height: 64),
-            //CategorySelector(
-            //    onPressed: (v) => setState(() {
-            //          pageIndex = v;
-            //        }),
-            //    categorySize: 0,
-            //    fontSize: 24,
-            //    categories: generatePageList(pageSize),
-            //    categoryIndex: pageIndex),
-            //const SizedBox(height: 64),
 
             // ここからコンテンツ
             SizedBox(
@@ -139,15 +164,6 @@ class HomeState extends State<Home> {
             // ここまでコンテンツ
 
             const SizedBox(height: 64),
-            //CategorySelector(
-            //    onPressed: (v) => setState(() {
-            //          pageIndex = v;
-            //        }),
-            //    categorySize: 0,
-            //    fontSize: 24,
-            //    categories: generatePageList(pageSize),
-            //    categoryIndex: pageIndex),
-            //const SizedBox(height: 64),
             CategorySelector(
                 onPressed: (v) => setState(() {
                       categoryIndex = v;
