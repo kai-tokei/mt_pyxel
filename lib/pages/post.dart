@@ -22,6 +22,11 @@ class PostPageState extends State<PostPage> {
 
   int categoryIndex = 0;
 
+  // Data
+  String projectName = "";
+  String executionLink = "";
+  String description = "";
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,6 +59,9 @@ class PostPageState extends State<PostPage> {
         SizedBox(
             width: 400,
             child: TextField(
+                onChanged: (v) => setState(() {
+                      projectName = v;
+                    }),
                 style: const TextStyle(fontSize: 20),
                 maxLength: 64,
                 decoration: InputDecoration(
@@ -77,6 +85,9 @@ class PostPageState extends State<PostPage> {
             child: TextField(
                 style: const TextStyle(fontSize: 20),
                 maxLength: 512,
+                onChanged: (v) => setState(() {
+                      executionLink = v;
+                    }),
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -100,6 +111,9 @@ class PostPageState extends State<PostPage> {
                 keyboardType: TextInputType.multiline,
                 maxLines: 8,
                 maxLength: 3000,
+                onChanged: (v) => setState(() {
+                      description = v;
+                    }),
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
