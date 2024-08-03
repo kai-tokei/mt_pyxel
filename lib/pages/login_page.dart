@@ -1,55 +1,37 @@
 import 'package:flutter/material.dart';
-// components
 import 'package:mt_pyxel/components/page_title.dart';
 
-class UserSettingsPage extends StatefulWidget {
-  const UserSettingsPage({super.key});
+class LogInPage extends StatefulWidget {
+  const LogInPage({super.key});
 
   @override
-  State<UserSettingsPage> createState() => UserSettingsPageState();
+  State<LogInPage> createState() => LogInPageState();
 }
 
-class UserSettingsPageState extends State<UserSettingsPage> {
-  String userName = "";
-  String introduction = "";
+class LogInPageState extends State<LogInPage> {
+  // 入力系
+  String mailAddress = "";
+  String password = "";
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const SizedBox(height: 64),
-        const PageTitle(title: "Profile Settings"),
+        const PageTitle(title: "LogIn"),
         const SizedBox(height: 84),
 
-        // Icon
-        const Text("Icon", style: TextStyle(fontSize: 36)),
-        const SizedBox(height: 8),
-        InkWell(
-            splashColor: Colors.transparent,
-            onTap: () {},
-            child: Container(
-              width: 400,
-              height: 300,
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: Theme.of(context).colorScheme.secondary, width: 2.5),
-                borderRadius: BorderRadius.circular(0),
-              ),
-              child: Image.asset("images/upload.png", height: 32),
-            )),
-        const SizedBox(height: 48),
-
-        // User Name
-        const Text("User Name", style: TextStyle(fontSize: 36)),
+        // Mail Address
+        const Text("Mail Address", style: TextStyle(fontSize: 36)),
         const SizedBox(height: 8),
         SizedBox(
-            width: 400,
+            width: 500,
             child: TextField(
                 onChanged: (v) => setState(() {
-                      userName = v;
+                      mailAddress = v;
                     }),
                 style: const TextStyle(fontSize: 20),
-                maxLength: 64,
+                maxLength: 84,
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -63,23 +45,22 @@ class UserSettingsPageState extends State<UserSettingsPage> {
                         borderRadius: BorderRadius.circular(0))))),
         const SizedBox(height: 48),
 
-        // Introduction
-        const Text("Introduction", style: TextStyle(fontSize: 36)),
+        // Password
+        const Text("Password", style: TextStyle(fontSize: 36)),
         const SizedBox(height: 8),
         SizedBox(
-            width: 600,
+            width: 500,
             child: TextField(
                 onChanged: (v) => setState(() {
-                      introduction = v;
+                      password = v;
                     }),
-                style: const TextStyle(fontSize: 22),
-                keyboardType: TextInputType.multiline,
-                maxLines: 8,
-                maxLength: 3000,
+                obscureText: true,
+                style: const TextStyle(fontSize: 20),
+                maxLength: 84,
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            width: 3,
+                            width: 2.5,
                             color: Theme.of(context).colorScheme.secondary),
                         borderRadius: BorderRadius.circular(0)),
                     enabledBorder: OutlineInputBorder(
@@ -87,9 +68,10 @@ class UserSettingsPageState extends State<UserSettingsPage> {
                             width: 3,
                             color: Theme.of(context).colorScheme.secondary),
                         borderRadius: BorderRadius.circular(0))))),
-        const SizedBox(height: 32),
+        const SizedBox(height: 48),
 
-        const SizedBox(height: 32),
+        // Confirm Button
+        const SizedBox(height: 64),
         ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
