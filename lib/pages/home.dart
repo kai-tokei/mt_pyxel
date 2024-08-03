@@ -91,19 +91,17 @@ class HomeState extends State<Home> {
                   CommonSearchBox(onChanged: (v) {})
                 ])),
             const SizedBox(height: 64),
+            //CategorySelector(
+            //    onPressed: (v) => setState(() {
+            //          pageIndex = v;
+            //        }),
+            //    categorySize: 0,
+            //    fontSize: 24,
+            //    categories: generatePageList(pageSize),
+            //    categoryIndex: pageIndex),
+            //const SizedBox(height: 64),
 
             // ここからコンテンツ
-            CategorySelector(
-                onPressed: (v) => setState(() {
-                      pageIndex = v;
-                    }),
-                categorySize: 0,
-                fontSize: 24,
-                categories: generatePageList(pageSize),
-                categoryIndex: pageIndex),
-            const SizedBox(height: 64),
-            // ここまでコンテンツ
-
             SizedBox(
                 width: 950,
                 child: Wrap(
@@ -124,7 +122,8 @@ class HomeState extends State<Home> {
                                   author: "sample",
                                   image:
                                       Image.asset("images/gameview-sample.png"),
-                                  excuteLink: "https://wwww",
+                                  excuteLink:
+                                      "https://github.com/kitao/pyxel/blob/main/docs/README.ja.md",
                                   likes: 2,
                                   comments: 3,
                                   desc: "desk")));
@@ -132,16 +131,18 @@ class HomeState extends State<Home> {
                       )
                   ],
                 )),
+            // ここまでコンテンツ
+
             const SizedBox(height: 64),
-            CategorySelector(
-                onPressed: (v) => setState(() {
-                      pageIndex = v;
-                    }),
-                categorySize: 0,
-                fontSize: 24,
-                categories: generatePageList(pageSize),
-                categoryIndex: pageIndex),
-            const SizedBox(height: 64),
+            //CategorySelector(
+            //    onPressed: (v) => setState(() {
+            //          pageIndex = v;
+            //        }),
+            //    categorySize: 0,
+            //    fontSize: 24,
+            //    categories: generatePageList(pageSize),
+            //    categoryIndex: pageIndex),
+            //const SizedBox(height: 64),
             CategorySelector(
                 onPressed: (v) => setState(() {
                       categoryIndex = v;

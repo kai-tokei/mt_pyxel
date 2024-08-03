@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:html' as html;
 // components
 // import 'package:mt_pyxel/components/comment.dart';
 import 'package:mt_pyxel/components/common_bottombar.dart';
@@ -50,10 +51,13 @@ class ContentPageState extends State<ContentPage> {
       ),
       Divider(thickness: 2.5, color: Theme.of(context).colorScheme.secondary),
       const SizedBox(height: 64),
-      widget.image,
+      InkWell(
+        child: widget.image,
+        onTap: () => html.window.open(widget.excuteLink, 'new tab'),
+      ),
       SizedBox(
         height: 84,
-        width: 600,
+        width: 700,
         child: Row(
           children: [
             Image.asset("images/heart.png", width: 38),

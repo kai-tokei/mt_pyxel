@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 // components
 import 'package:mt_pyxel/components/appbar_link_button.dart';
 
@@ -23,10 +21,6 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     String _displayName = "";
-    final googleLogin = GoogleSignIn(scopes: [
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ]);
 
     return AppBar(
       automaticallyImplyLeading: false,
@@ -44,26 +38,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
           AppBarLinkButton(onPressed: onLearn, label: "Learn"),
           const Expanded(child: SizedBox()),
           TextButton(
-              onPressed: () async {
-                final googleLogin = GoogleSignIn(scopes: [
-                  'email',
-                  'https://www.googleapis.com/auth/contacts.readonly'
-                ]);
-                GoogleSignInAccount? signInAccount = await googleLogin.signIn();
-                if (signInAccount == null) return;
-                GoogleSignInAuthentication auth =
-                    await signInAccount.authentication;
-                final OAuthCredential credential =
-                    GoogleAuthProvider.credential(
-                        idToken: auth.idToken, accessToken: auth.accessToken);
-                User? user = (await FirebaseAuth.instance
-                        .signInWithCredential(credential))
-                    .user;
-                if (user != null) {
-                  _displayName = user.displayName!;
-                  debugPrint(_displayName);
-                }
-              },
+              onPressed: () {},
               //child: Text(userName,
               child: Text(userName,
                   style: TextStyle(
