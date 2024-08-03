@@ -63,7 +63,7 @@ class PostPageState extends State<PostPage> {
                       projectName = v;
                     }),
                 style: const TextStyle(fontSize: 20),
-                maxLength: 64,
+                maxLength: 512,
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(

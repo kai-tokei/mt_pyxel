@@ -1,4 +1,7 @@
+// packages
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+// components
 import 'package:mt_pyxel/components/page_title.dart';
 
 class LogInPage extends StatefulWidget {
@@ -13,12 +16,15 @@ class LogInPageState extends State<LogInPage> {
   String mailAddress = "";
   String password = "";
 
+  // auth系
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const SizedBox(height: 64),
-        const PageTitle(title: "LogIn"),
+        const PageTitle(title: "SignIn / SignUp"),
         const SizedBox(height: 84),
 
         // Mail Address
@@ -70,17 +76,32 @@ class LogInPageState extends State<LogInPage> {
                         borderRadius: BorderRadius.circular(0))))),
         const SizedBox(height: 48),
 
-        // Confirm Button
+        // Sign Up
         const SizedBox(height: 64),
         ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              try {
+                await _auth.signInWithEmailAndPassword(
+                    email: mailAddress, password: password);
+                debugPrint("Sign In");
+              } catch (e) {
+                debugPrint(e.toString());
+                try {
+                  await _auth.createUserWithEmailAndPassword(
+                      email: mailAddress, password: password);
+                  debugPrint("Sign Up");
+                } catch (e) {
+                  debugPrint(e.toString());
+                }
+              }
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               elevation: 0,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0)),
             ),
-            child: Text("  Confirm  ",
+            child: Text("  Sign Up/In  ",
                 style: TextStyle(
                     fontSize: 48,
                     color: Theme.of(context).colorScheme.onPrimary))),

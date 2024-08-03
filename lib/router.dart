@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mt_pyxel/firebase_options.dart';
 // pages
 import 'package:mt_pyxel/pages/home.dart';
 import 'package:mt_pyxel/pages/post.dart';
+import 'package:mt_pyxel/pages/login_page.dart';
 
 // components
 import 'package:mt_pyxel/components/common_appbar.dart';
@@ -31,7 +31,8 @@ final goRouter = GoRouter(initialLocation: '/home', routes: [
                 child: Center(
                     child: Column(
               children: [
-                Home(),
+                //Home(),
+                LogInPage(),
                 CommonBottomBar(),
               ],
             ))));
