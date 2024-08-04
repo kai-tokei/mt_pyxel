@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Content {
   const Content(
       {required this.title,
@@ -11,7 +9,7 @@ class Content {
       required this.kind,
       required this.executeLink});
 
-  final executeLink;
+  final String executeLink;
   final String title;
   final String author;
   final dynamic image;

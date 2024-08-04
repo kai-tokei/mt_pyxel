@@ -59,11 +59,8 @@ class HomeState extends State<Home> {
         Content content = Content(
           title: data['title'] ?? '',
           author: data['author'] ?? '',
-          executeLink: data['executeLink'],
-          image: Image.network(
-            data['image'],
-            width: 238,
-          ),
+          executeLink: data['executeLink'] ?? '',
+          image: data['image'],
           likes: data['likes'] ?? 0,
           comments: data['comments'] ?? 0,
           desc: data['desc'] ?? '',
@@ -207,7 +204,10 @@ class HomeState extends State<Home> {
                               spacing: 45,
                               children: contents.map((content) {
                                 return ContentBox(
-                                  image: content.image,
+                                  image: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Image.network(content.image,
+                                          height: 180, width: 200)),
                                   title: content.title,
                                   likes: content.likes,
                                   comments: content.comments,
@@ -217,8 +217,9 @@ class HomeState extends State<Home> {
                                       builder: (context) => ContentPage(
                                         title: content.title,
                                         author: content.author,
-                                        image: content.image,
-                                        excuteLink: "https://example.com",
+                                        image: Image.network(content.image,
+                                            width: 650),
+                                        executeLink: content.executeLink,
                                         likes: content.likes,
                                         comments: content.comments,
                                         desc: content.desc,

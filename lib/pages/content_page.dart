@@ -11,14 +11,14 @@ class ContentPage extends StatefulWidget {
     required this.author,
     required this.image,
     required this.likes,
-    required this.excuteLink,
+    required this.executeLink,
     required this.comments,
     required this.desc,
   });
 
   final String title;
   final String author;
-  final String excuteLink;
+  final String executeLink;
   final Widget image;
   final int likes;
   final int comments;
@@ -53,7 +53,7 @@ class ContentPageState extends State<ContentPage> {
       const SizedBox(height: 64),
       InkWell(
         child: widget.image,
-        onTap: () => html.window.open(widget.excuteLink, 'new tab'),
+        onTap: () => html.window.open(widget.executeLink, 'new tab'),
       ),
       SizedBox(
         height: 84,
