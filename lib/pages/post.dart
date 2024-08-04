@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mt_pyxel/components/common_bottombar.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker_web/image_picker_web.dart';
+import 'dart:typed_data';
+import 'package:crypto/crypto.dart';
+import 'dart:html' as html;
+import 'dart:convert';
 // components
 import 'package:mt_pyxel/components/page_title.dart';
 import 'package:mt_pyxel/components/category_selector.dart';
@@ -26,10 +34,91 @@ class PostPageState extends State<PostPage> {
   String projectName = "";
   String executionLink = "";
   String description = "";
+  Uint8List? _imageData;
+  String? _imageName;
+
+  String _generateHash(Uint8List data) {
+    var bytes = utf8.encode(
+        base64Encode(data)); // Convert image data to base64 and then to bytes
+    var digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
+  Future<void> pickImage() async {
+    Uint8List? imageFromPicker = await ImagePickerWeb.getImageAsBytes();
+
+    if (imageFromPicker != null) {
+      setState(() {
+        _imageData = imageFromPicker;
+        _imageName = _generateHash(imageFromPicker);
+      });
+    } else {
+      debugPrint('No image selected.');
+    }
+  }
+
+  Future<String?> uploadFile() async {
+    if (_imageData == null || _imageName == null) return null;
+
+    try {
+      final destination = 'thumbnails/$_imageName';
+      final ref = FirebaseStorage.instance.ref(destination);
+      // Upload file
+      final uploadTask = ref.putData(_imageData!);
+      // Wait for upload to complete
+      final snapshot = await uploadTask.whenComplete(() => {});
+      // Get the download URL
+      final downloadUrl = await snapshot.ref.getDownloadURL();
+
+      return downloadUrl;
+    } catch (e) {
+      debugPrint('Error uploading file: $e');
+      return null;
+    }
+  }
+
+  Future postData() async {
+    try {
+      String? imageUrl = await uploadFile();
+
+      if (description.isNotEmpty &&
+          executionLink.isNotEmpty &&
+          projectName.isNotEmpty) {
+        CollectionReference posts =
+            FirebaseFirestore.instance.collection('posts');
+        await posts.add({
+          'author': 'anonymous',
+          'desc': description,
+          'executeLink': executionLink,
+          'image': imageUrl ?? "",
+          'kind': categories[categoryIndex],
+          'likes': 0,
+          'title': projectName,
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content:
+              const Text("Post successful!", style: TextStyle(fontSize: 32)),
+          duration: const Duration(seconds: 10),
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('There are some items that are not filled in!!')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to post: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Scaffold(
+        body: SingleChildScrollView(
+            child: Center(
+                child: Column(
       children: [
         const SizedBox(height: 64),
         const PageTitle(title: "Post Your Project"),
@@ -40,7 +129,7 @@ class PostPageState extends State<PostPage> {
         const SizedBox(height: 8),
         InkWell(
             splashColor: Colors.transparent,
-            onTap: () {},
+            onTap: pickImage,
             child: Container(
               width: 400,
               height: 300,
@@ -49,7 +138,9 @@ class PostPageState extends State<PostPage> {
                     color: Theme.of(context).colorScheme.secondary, width: 2.5),
                 borderRadius: BorderRadius.circular(0),
               ),
-              child: Image.asset("images/upload.png", height: 32),
+              child: _imageData == null
+                  ? Image.asset("images/upload.png", height: 32)
+                  : Image.memory(_imageData!, fit: BoxFit.cover),
             )),
         const SizedBox(height: 32),
 
@@ -140,7 +231,7 @@ class PostPageState extends State<PostPage> {
 
         const SizedBox(height: 32),
         ElevatedButton(
-            onPressed: () {},
+            onPressed: postData,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               elevation: 0,
@@ -152,7 +243,8 @@ class PostPageState extends State<PostPage> {
                     fontSize: 48,
                     color: Theme.of(context).colorScheme.onPrimary))),
         const SizedBox(height: 32),
+        const CommonBottomBar()
       ],
-    );
+    ))));
   }
 }

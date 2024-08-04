@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:go_router/go_router.dart';
 // components
 import 'package:mt_pyxel/components/category_selector.dart';
 import 'package:mt_pyxel/components/common_appbar.dart';
@@ -8,6 +7,7 @@ import 'package:mt_pyxel/components/common_bottombar.dart';
 import 'package:mt_pyxel/components/common_searchbox.dart';
 import 'package:mt_pyxel/components/content.dart';
 import 'package:mt_pyxel/pages/content_page.dart';
+import 'package:mt_pyxel/pages/post.dart';
 // structs
 import 'package:mt_pyxel/structs/content.dart';
 
@@ -75,7 +75,11 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CommonAppBar(
-            onAbout: () {}, onPost: () {}, onLearn: () {}, onUserName: () {}),
+            onAbout: () {},
+            onPost: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (builder) => const PostPage())),
+            onLearn: () {},
+            onUserName: () {}),
         body: Center(
             child: SingleChildScrollView(
                 child: Column(
