@@ -8,6 +8,8 @@ import 'package:mt_pyxel/components/common_bottombar.dart';
 import 'package:mt_pyxel/components/common_searchbox.dart';
 import 'package:mt_pyxel/components/content.dart';
 import 'package:mt_pyxel/pages/content_page.dart';
+// structs
+import 'package:mt_pyxel/structs/content.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -23,7 +25,7 @@ class HomeState extends State<Home> {
     "Tools",
     "Paints",
     "Musics",
-    "Users"
+    "others"
   ];
 
   List<String> sortCategories = [
@@ -37,6 +39,8 @@ class HomeState extends State<Home> {
   int pageSize = 5;
   int contentSize = 6;
 
+  List<Content> contents = [];
+
   List<String> generatePageList(int pageSize) {
     List<String> pageList = [];
     for (int i = 0; i < pageSize; i++) {
@@ -45,49 +49,94 @@ class HomeState extends State<Home> {
     return pageList;
   }
 
-  Future<void> fetchAllPosts() async {
+  Stream<List<Content>> fetchAllPosts() {
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    try {
-      QuerySnapshot querySnapshot = await firestore.collection('posts').get();
+    return firestore.collection('posts').snapshots().map((querySnapshot) {
+      return querySnapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data();
 
-      for (var doc in querySnapshot.docs) {
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-        String author = data['author'] ?? '';
-        String desc = data['desc'] ?? '';
-        String executeLink =
-            data['excutelink'] ?? ''; // Note: typo in field name is preserved
-        String image = data['image'] ?? '';
-        int likes = data['likes'] ?? 0;
-        String title = data['title'] ?? '';
-        String kind = data['kind'] ?? '';
-
-        debugPrint('Document ID: ${doc.id}');
-        debugPrint('Author: $author');
-        debugPrint('Description: $desc');
-        debugPrint('Execute Link: $executeLink');
-        debugPrint('Image: $image');
-        debugPrint('Likes: $likes');
-        debugPrint('Title: $title');
-        debugPrint('Kind: $kind');
-        debugPrint('-------------------');
-      }
-    } catch (e) {
-      debugPrint('Error fetching documents: $e');
-    }
+        Content content = Content(
+          title: data['title'] ?? '',
+          author: data['author'] ?? '',
+          executeLink: data['executeLink'],
+          image: Image.network(
+            data['image'],
+            width: 238,
+          ),
+          likes: data['likes'] ?? 0,
+          comments: data['comments'] ?? 0,
+          desc: data['desc'] ?? '',
+          kind: data['kind'] ?? '',
+        );
+        return content;
+      }).toList();
+    });
   }
+
+  //Future<List<Content>> fetchAllPosts() async {
+  //  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  //  List<Content> contents = [];
+
+  //  try {
+  //    QuerySnapshot querySnapshot = await firestore.collection('posts').get();
+
+  //    for (var doc in querySnapshot.docs) {
+  //      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+  //      Content content = Content(
+  //          title: data['title'] ?? '',
+  //          author: data['author'] ?? '',
+  //          image: Image.network(
+  //            data['image'],
+  //            width: 238,
+  //          ),
+  //          likes: data['likes'] ?? 0,
+  //          comments: data['comments'] ?? 0,
+  //          desc: data['desc'] ?? '',
+  //          kind: data['kind'] ?? '');
+  //      String author = data['author'] ?? '';
+  //      String desc = data['desc'] ?? '';
+  //      String executeLink =
+  //          data['excutelink'] ?? ''; // Note: typo in field name is preserved
+  //      dynamic image = data['image'] ?? '';
+  //      int likes = data['likes'] ?? 0;
+  //      String title = data['title'] ?? '';
+  //      String kind = data['kind'] ?? '';
+
+  //      debugPrint('Document ID: ${doc.id}');
+  //      debugPrint('Author: $author');
+  //      debugPrint('Description: $desc');
+  //      debugPrint('Execute Link: $executeLink');
+  //      debugPrint('Image: $image');
+  //      debugPrint('Likes: $likes');
+  //      debugPrint('Title: $title');
+  //      debugPrint('Kind: $kind');
+  //      debugPrint('-------------------');
+
+  //      contents.add(content);
+  //    }
+  //    return Future<List<Content>>.value(contents);
+  //  } catch (e) {
+  //    debugPrint('Error fetching documents: $e');
+  //    Content content = const Content(
+  //        title: 'title',
+  //        author: 'author',
+  //        image: Image(image: AssetImage("images/logo.png")),
+  //        likes: 0,
+  //        comments: 0,
+  //        desc: 'desc.',
+  //        kind: 'others');
+  //    contents.add(content);
+  //  }
+  //  return Future<List<Content>>.value(contents);
+  //}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CommonAppBar(
-            onAbout: () async {
-              fetchAllPosts();
-            },
-            onPost: () {},
-            onLearn: () {},
-            onUserName: () {}),
+            onAbout: () {}, onPost: () {}, onLearn: () {}, onUserName: () {}),
         body: Center(
             child: SingleChildScrollView(
                 child: Column(
@@ -138,27 +187,72 @@ class HomeState extends State<Home> {
                   runSpacing: 16,
                   spacing: 45,
                   children: [
-                    for (int i = 0; i < 10; i++)
-                      ContentBox(
-                        image: Image.asset("images/gameview-sample.png",
-                            width: 281),
-                        title: "Jump game with Pyxel resource file",
-                        likes: 132,
-                        comments: 12,
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (builder) => ContentPage(
-                                  title: "Jump game with Pyxel resource file",
-                                  author: "sample",
-                                  image:
-                                      Image.asset("images/gameview-sample.png"),
-                                  excuteLink:
-                                      "https://github.com/kitao/pyxel/blob/main/docs/README.ja.md",
-                                  likes: 2,
-                                  comments: 3,
-                                  desc: "desk")));
-                        },
-                      )
+                    StreamBuilder<List<Content>>(
+                      stream: fetchAllPosts(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.isEmpty) {
+                          return const Text('No data available');
+                        } else {
+                          contents = snapshot.data!;
+                          return SizedBox(
+                            width: 950,
+                            child: Wrap(
+                              runSpacing: 16,
+                              spacing: 45,
+                              children: contents.map((content) {
+                                return ContentBox(
+                                  image: content.image,
+                                  title: content.title,
+                                  likes: content.likes,
+                                  comments: content.comments,
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => ContentPage(
+                                        title: content.title,
+                                        author: content.author,
+                                        image: content.image,
+                                        excuteLink: "https://example.com",
+                                        likes: content.likes,
+                                        comments: content.comments,
+                                        desc: content.desc,
+                                      ),
+                                    ));
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                          );
+                        }
+                      },
+                      //for (int i = 0; i < contents.length; i++)
+                      //  ContentBox(
+                      //    image: Image.asset("images/gameview-sample.png",
+                      //        width: 281),
+                      //    title: "Jump game with Pyxel resource file",
+                      //    likes: 132,
+                      //    comments: 12,
+                      //    onPressed: () {
+                      //      Navigator.of(context).push(MaterialPageRoute(
+                      //          builder: (builder) => ContentPage(
+                      //              title: "Jump game with Pyxel resource file",
+                      //              author: "sample",
+                      //              image:
+                      //                  Image.asset("images/gameview-sample.png"),
+                      //              excuteLink:
+                      //                  "https://github.com/kitao/pyxel/blob/main/docs/README.ja.md",
+                      //              likes: 2,
+                      //              comments: 3,
+                      //              desc: "desk")));
+                      //    },
+                      //  )
+                    )
                   ],
                 )),
             // ここまでコンテンツ
