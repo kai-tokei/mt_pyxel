@@ -5,11 +5,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
-import 'dart:html' as html;
 import 'dart:convert';
 // components
 import 'package:mt_pyxel/components/page_title.dart';
 import 'package:mt_pyxel/components/category_selector.dart';
+import 'package:mt_pyxel/components/singleline_textfield.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
@@ -95,15 +95,16 @@ class PostPageState extends State<PostPage> {
           'likes': 0,
           'title': projectName,
         });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content:
-              const Text("Post successful!", style: TextStyle(fontSize: 32)),
-          duration: const Duration(seconds: 10),
-        ));
-        Navigator.of(context).pop();
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Post successful!", style: TextStyle(fontSize: 32)),
+            duration: Duration(seconds: 10),
+          ));
+          Navigator.of(context).pop();
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
               content: Text('There are some items that are not filled in!!')),
         );
       }
@@ -148,49 +149,19 @@ class PostPageState extends State<PostPage> {
         // Project Name
         const Text("Project Name", style: TextStyle(fontSize: 36)),
         const SizedBox(height: 8),
-        SizedBox(
-            width: 400,
-            child: TextField(
-                onChanged: (v) => setState(() {
-                      projectName = v;
-                    }),
-                style: const TextStyle(fontSize: 20),
-                maxLength: 512,
-                decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            width: 2.5,
-                            color: Theme.of(context).colorScheme.secondary),
-                        borderRadius: BorderRadius.circular(0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            width: 3,
-                            color: Theme.of(context).colorScheme.secondary),
-                        borderRadius: BorderRadius.circular(0))))),
+        SinglelineTextField(
+            onChanged: (v) => setState(() {
+                  projectName = v;
+                })),
         const SizedBox(height: 32),
 
         // Execution Link
         const Text("Execution Link", style: TextStyle(fontSize: 36)),
         const SizedBox(height: 8),
-        SizedBox(
-            width: 400,
-            child: TextField(
-                style: const TextStyle(fontSize: 20),
-                maxLength: 512,
-                onChanged: (v) => setState(() {
-                      executionLink = v;
-                    }),
-                decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            width: 2.5,
-                            color: Theme.of(context).colorScheme.secondary),
-                        borderRadius: BorderRadius.circular(0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            width: 3,
-                            color: Theme.of(context).colorScheme.secondary),
-                        borderRadius: BorderRadius.circular(0))))),
+        SinglelineTextField(
+            onChanged: (v) => setState(() {
+                  executionLink = v;
+                })),
         const SizedBox(height: 32),
 
         // Description
