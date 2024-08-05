@@ -63,11 +63,8 @@ class PostPageState extends State<PostPage> {
     try {
       final destination = 'thumbnails/$_imageName';
       final ref = FirebaseStorage.instance.ref(destination);
-      // Upload file
       final uploadTask = ref.putData(_imageData!);
-      // Wait for upload to complete
       final snapshot = await uploadTask.whenComplete(() => {});
-      // Get the download URL
       final downloadUrl = await snapshot.ref.getDownloadURL();
 
       return downloadUrl;
