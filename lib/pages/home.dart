@@ -20,6 +20,7 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   List<String> categories = [
+    "All",
     "Games",
     "Tech",
     "Tools",
@@ -49,13 +50,17 @@ class HomeState extends State<Home> {
     return pageList;
   }
 
+  bool categoryFilter(Content content) {
+    return categories[categoryIndex] == 'All' ||
+        content.kind == categories[categoryIndex];
+  }
+
   Stream<List<Content>> fetchAllPosts() {
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     return firestore.collection('posts').snapshots().map((querySnapshot) {
       return querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data();
-
         Content content = Content(
           title: data['title'] ?? '',
           author: data['author'] ?? '',

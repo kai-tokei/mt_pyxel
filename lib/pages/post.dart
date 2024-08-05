@@ -100,6 +100,7 @@ class PostPageState extends State<PostPage> {
               const Text("Post successful!", style: TextStyle(fontSize: 32)),
           duration: const Duration(seconds: 10),
         ));
+        Navigator.of(context).pop();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
