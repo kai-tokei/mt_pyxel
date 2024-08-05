@@ -5,11 +5,13 @@ class ContentBox extends StatelessWidget {
     super.key,
     required this.image,
     required this.title,
+    required this.author,
     required this.likes,
     required this.comments,
     required this.onPressed,
   });
 
+  final String author;
   final Widget image;
   final String title;
   final int likes;
@@ -30,7 +32,7 @@ class ContentBox extends StatelessWidget {
                 Text(title, style: const TextStyle(fontSize: 28)),
                 Row(
                   children: [
-                    Text("by Kitao",
+                    Text("by $author",
                         style: TextStyle(
                             fontSize: 22,
                             color: Theme.of(context).colorScheme.secondary))

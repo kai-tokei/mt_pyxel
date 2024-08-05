@@ -117,6 +117,7 @@ Hello, I'm PixelMaster! I'm a retro game enthusiast and an avid Pyxel developer.
                     image:
                         Image.asset("images/gameview-sample.png", width: 281),
                     title: "Jump game with Pyxel resource file",
+                    author: "by kitao",
                     likes: 132,
                     comments: 12,
                     onPressed: () {},

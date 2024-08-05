@@ -161,6 +161,7 @@ class HomeState extends State<Home> {
                                           height: 180, width: 200)),
                                   title: content.title,
                                   likes: content.likes,
+                                  author: content.author,
                                   comments: content.comments,
                                   onPressed: () {
                                     Navigator.of(context)
