@@ -20,6 +20,14 @@ class LogInPageState extends State<LogInPage> {
   String mailAddress = "";
   String password = "";
 
+  Future createUserWithEmailAndPassword(
+      String email, String password, String name) async {
+    await widget.auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

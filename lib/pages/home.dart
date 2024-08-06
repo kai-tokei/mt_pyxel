@@ -84,7 +84,7 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CommonAppBar(
-          userName: auth.currentUser?.uid.toString() ?? "SignIn",
+          userName: auth.currentUser?.email ?? "SignIn",
           onAbout: () {},
           onPost: () => Navigator.of(context)
               .push(MaterialPageRoute(builder: (builder) => const PostPage())),
