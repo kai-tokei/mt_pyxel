@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
 // components
 import 'package:mt_pyxel/components/page_title.dart';
@@ -12,7 +13,12 @@ import 'package:mt_pyxel/components/category_selector.dart';
 import 'package:mt_pyxel/components/singleline_textfield.dart';
 
 class PostPage extends StatefulWidget {
-  const PostPage({super.key});
+  const PostPage({
+    super.key,
+    required this.auth,
+  });
+
+  final FirebaseAuth auth;
 
   @override
   State<PostPage> createState() => PostPageState();
@@ -85,7 +91,7 @@ class PostPageState extends State<PostPage> {
         CollectionReference posts =
             FirebaseFirestore.instance.collection('posts');
         await posts.add({
-          'author': 'anonymous',
+          'author': widget.auth.currentUser?.email ?? "Anonymous",
           'desc': description,
           'executeLink': executionLink,
           'image': imageUrl ?? "",

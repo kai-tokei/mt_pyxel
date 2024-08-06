@@ -94,8 +94,8 @@ class HomeState extends State<Home> {
                     content: Text("User is currently signed out!",
                         style: TextStyle(fontSize: 32))));
               } else {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (builder) => const PostPage()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (builder) => PostPage(auth: auth)));
               }
             });
           },
