@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:html' as html;
 // components
 import 'package:mt_pyxel/components/category_selector.dart';
 import 'package:mt_pyxel/components/common_appbar.dart';
@@ -88,7 +89,8 @@ class HomeState extends State<Home> {
           onAbout: () {},
           onPost: () => Navigator.of(context)
               .push(MaterialPageRoute(builder: (builder) => const PostPage())),
-          onLearn: () {},
+          onLearn: () =>
+              html.window.open('https://github.com/kitao/pyxel', 'new tab'),
           onUserName: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (builder) => LogInPage(auth: auth))),
         ),
