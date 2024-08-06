@@ -55,52 +55,78 @@ class LogInPageState extends State<LogInPage> {
             onChanged: (v) => setState(() {
                   password = v;
                 })),
-        const SizedBox(height: 48),
 
-        // Sign Up
-        const SizedBox(height: 64),
-        ElevatedButton(
-            onPressed: () async {
-              try {
-                await widget.auth.signInWithEmailAndPassword(
-                    email: mailAddress, password: password);
-                debugPrint("Sign In");
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Sign In successful!",
-                      style: TextStyle(fontSize: 32)),
-                  duration: Duration(seconds: 10),
-                ));
-              } catch (e) {
-                debugPrint(e.toString());
-                try {
-                  await widget.auth.createUserWithEmailAndPassword(
-                      email: mailAddress, password: password);
-                  debugPrint("Sign Up");
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("Sign Up successful!",
-                        style: TextStyle(fontSize: 32)),
-                    duration: Duration(seconds: 10),
-                  ));
-                } catch (e) {
-                  debugPrint(e.toString());
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Failed to certify: $e')),
-                  );
-                }
-              }
-              Navigator.of(context).pop();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0)),
-            ),
-            child: Text("  Sign Up/In  ",
-                style: TextStyle(
-                    fontSize: 48,
-                    color: Theme.of(context).colorScheme.onPrimary))),
-        const SizedBox(height: 32),
+        const SizedBox(height: 128),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Sign Up
+            ElevatedButton(
+                onPressed: () async {
+                  try {
+                    await widget.auth.createUserWithEmailAndPassword(
+                        email: mailAddress, password: password);
+                    debugPrint("Sign Up");
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Sign Up successful!",
+                          style: TextStyle(fontSize: 32)),
+                      duration: Duration(seconds: 10),
+                    ));
+                  } catch (e) {
+                    debugPrint(e.toString());
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Failed to certify: $e')),
+                    );
+                  }
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0)),
+                ),
+                child: Text("  Sign Up  ",
+                    style: TextStyle(
+                        fontSize: 48,
+                        color: Theme.of(context).colorScheme.onPrimary))),
+
+            const SizedBox(width: 32),
+
+            // Sign In
+            ElevatedButton(
+                onPressed: () async {
+                  try {
+                    await widget.auth.signInWithEmailAndPassword(
+                        email: mailAddress, password: password);
+                    debugPrint("Sign In");
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Sign In successful!",
+                          style: TextStyle(fontSize: 32)),
+                      duration: Duration(seconds: 10),
+                    ));
+                  } catch (e) {
+                    debugPrint(e.toString());
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Failed to certify: $e')),
+                    );
+                  }
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0)),
+                ),
+                child: Text("  Sign In  ",
+                    style: TextStyle(
+                        fontSize: 48,
+                        color: Theme.of(context).colorScheme.onPrimary))),
+          ],
+        ),
+        const SizedBox(height: 84),
         const CommonBottomBar()
       ],
     )));

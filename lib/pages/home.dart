@@ -86,13 +86,15 @@ class HomeState extends State<Home> {
     return Scaffold(
         appBar: CommonAppBar(
           userName: auth.currentUser?.email ?? "SignIn",
-          onAbout: () {},
+          onAbout: () => setState(() {}),
           onPost: () => Navigator.of(context)
               .push(MaterialPageRoute(builder: (builder) => const PostPage())),
           onLearn: () =>
               html.window.open('https://github.com/kitao/pyxel', 'new tab'),
-          onUserName: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (builder) => LogInPage(auth: auth))),
+          onUserName: () => Navigator.of(context)
+              .push(MaterialPageRoute(
+                  builder: (builder) => LogInPage(auth: auth)))
+              .then((_) => setState(() {})),
         ),
         body: Center(
             child: SingleChildScrollView(
