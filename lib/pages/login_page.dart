@@ -124,6 +124,26 @@ class LogInPageState extends State<LogInPage> {
                         color: Theme.of(context).colorScheme.onPrimary))),
           ],
         ),
+
+        // Sign Out
+        const SizedBox(height: 32),
+        ElevatedButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Sign Out successful!",
+                      style: TextStyle(fontSize: 32))));
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red.shade600,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0)),
+            ),
+            child: const Text("  Sign Out  ",
+                style: TextStyle(fontSize: 48, color: Colors.white))),
+
         const SizedBox(height: 84),
         const CommonBottomBar()
       ],
