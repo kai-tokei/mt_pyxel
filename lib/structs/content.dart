@@ -1,6 +1,7 @@
 class Content {
   const Content(
-      {required this.title,
+      {required this.id,
+      required this.title,
       required this.author,
       required this.image,
       required this.likes,
@@ -9,9 +10,10 @@ class Content {
       required this.kind,
       required this.executeLink});
 
-  final String executeLink;
+  final String id;
   final String title;
   final String author;
+  final String executeLink;
   final dynamic image;
   final int likes;
   final int comments;

@@ -67,6 +67,7 @@ class HomeState extends State<Home> {
       return querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data();
         Content content = Content(
+          id: doc.id,
           title: data['title'] ?? '',
           author: data['author'] ?? '',
           executeLink: data['executeLink'] ?? '',
@@ -194,21 +195,12 @@ class HomeState extends State<Home> {
                                           author: content.author,
                                           comments: content.comments,
                                           onPressed: () {
-                                            Navigator.of(context)
-                                                .push(MaterialPageRoute(
-                                              builder: (context) => ContentPage(
-                                                title: content.title,
-                                                author: content.author,
-                                                image: Image.network(
-                                                    content.image,
-                                                    width: 650),
-                                                executeLink:
-                                                    content.executeLink,
-                                                likes: content.likes,
-                                                comments: content.comments,
-                                                desc: content.desc,
-                                              ),
-                                            ));
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ContentPage(
+                                                          content: content,
+                                                        )));
                                           });
                                     })
                                     .toList(),

@@ -1,28 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mt_pyxel/structs/content.dart';
 import 'dart:html' as html;
 // components
 // import 'package:mt_pyxel/components/comment.dart';
 import 'package:mt_pyxel/components/common_bottombar.dart';
 
 class ContentPage extends StatefulWidget {
-  const ContentPage({
-    super.key,
-    required this.title,
-    required this.author,
-    required this.image,
-    required this.likes,
-    required this.executeLink,
-    required this.comments,
-    required this.desc,
-  });
+  const ContentPage({super.key, required this.content});
 
-  final String title;
-  final String author;
-  final String executeLink;
-  final Widget image;
-  final int likes;
-  final int comments;
-  final String desc;
+  final Content content;
 
   @override
   State<ContentPage> createState() => ContentPageState();
@@ -40,9 +26,9 @@ class ContentPageState extends State<ContentPage> {
       Row(
         children: [
           const SizedBox(width: 84),
-          Text(widget.title, style: const TextStyle(fontSize: 48)),
+          Text(widget.content.title, style: const TextStyle(fontSize: 48)),
           const Expanded(child: SizedBox()),
-          Text(widget.author,
+          Text(widget.content.author,
               style: TextStyle(
                   fontSize: 28,
                   color: Theme.of(context).colorScheme.secondary)),
@@ -52,28 +38,32 @@ class ContentPageState extends State<ContentPage> {
       Divider(thickness: 2.5, color: Theme.of(context).colorScheme.secondary),
       const SizedBox(height: 64),
       InkWell(
-        child: widget.image,
-        onTap: () => html.window.open(widget.executeLink, 'new tab'),
+        child: Image.network(widget.content.image, width: 650),
+        onTap: () => html.window.open(widget.content.executeLink, 'new tab'),
       ),
       SizedBox(
         height: 84,
         width: 700,
         child: Row(
           children: [
-            Image.asset("images/heart.png", width: 38),
+            IconButton(
+                icon: Image.asset("images/heart.png", width: 38),
+                onPressed: () {}),
             const SizedBox(width: 4),
-            Text(widget.likes.toString(), style: const TextStyle(fontSize: 28)),
+            Text(widget.content.likes.toString(),
+                style: const TextStyle(fontSize: 28)),
             const SizedBox(width: 24),
             Image.asset("images/comment.png", width: 38),
             const SizedBox(width: 4),
-            Text(widget.comments.toString(),
+            Text(widget.content.comments.toString(),
                 style: const TextStyle(fontSize: 28)),
           ],
         ),
       ),
       SizedBox(
           width: 680,
-          child: Text(widget.desc, style: const TextStyle(fontSize: 24))),
+          child:
+              Text(widget.content.desc, style: const TextStyle(fontSize: 24))),
       const SizedBox(height: 64),
       const CommonBottomBar()
       //SizedBox(
