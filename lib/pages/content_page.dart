@@ -120,6 +120,36 @@ class ContentPageState extends State<ContentPage> {
     }
   }
 
+  Future<void> showDeleteConfirmationDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title:
+              const Text('Delete Confirmation', style: TextStyle(fontSize: 48)),
+          content: const Text('Are you sure you want to delete this post?',
+              style: TextStyle(fontSize: 24)),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // ダイアログを閉じる
+              },
+              child: const Text('Cancel', style: TextStyle(fontSize: 32)),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop(); // ダイアログを閉じる
+                await deletePost(); // 削除処理を実行
+              },
+              child: const Text('Delete',
+                  style: TextStyle(fontSize: 32, color: Colors.red)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -145,7 +175,7 @@ class ContentPageState extends State<ContentPage> {
                   color: Theme.of(context).colorScheme.secondary)),
           const SizedBox(width: 32),
           IconButton(
-              onPressed: deletePost,
+              onPressed: () => showDeleteConfirmationDialog(context),
               icon: Image.asset('images/trashbox.png', width: 32)),
           const SizedBox(width: 84),
         ],
