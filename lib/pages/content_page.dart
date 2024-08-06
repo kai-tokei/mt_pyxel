@@ -109,6 +109,10 @@ class ContentPageState extends State<ContentPage> {
               style: TextStyle(
                   fontSize: 28,
                   color: Theme.of(context).colorScheme.secondary)),
+          const SizedBox(width: 32),
+          IconButton(
+              onPressed: () {},
+              icon: Image.asset('images/trashbox.png', width: 32)),
           const SizedBox(width: 84),
         ],
       ),

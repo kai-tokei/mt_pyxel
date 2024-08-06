@@ -174,14 +174,13 @@ class HomeState extends State<Home> {
                                 spacing: 45,
                                 children: contents
                                     .where((content) {
-                                      // カテゴリーフィルタリング
                                       if (categoryIndex == 0) {
-                                        return true; // "All" カテゴリーの場合は全て表示
+                                        return true;
                                       }
                                       return content.kind ==
                                           categories[categoryIndex];
                                     })
-                                    .toList() // リストに変換して並べ替えを可能にする
+                                    .toList()
                                     .map((content) {
                                       return ContentBox(
                                           image: Padding(
