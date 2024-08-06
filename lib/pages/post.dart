@@ -95,20 +95,22 @@ class PostPageState extends State<PostPage> {
         });
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Post successful!", style: TextStyle(fontSize: 32)),
-            duration: Duration(seconds: 10),
-          ));
+              content:
+                  Text("Post successful!", style: TextStyle(fontSize: 32))));
           Navigator.of(context).pop();
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text('There are some items that are not filled in!!')),
+              content: Text('There are some items that are not filled in!!',
+                  style: TextStyle(fontSize: 32))),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to post: $e')),
+        SnackBar(
+            content: Text('Failed to post: $e',
+                style: const TextStyle(fontSize: 32))),
       );
     }
   }
