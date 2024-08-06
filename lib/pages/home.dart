@@ -7,6 +7,7 @@ import 'package:mt_pyxel/components/common_bottombar.dart';
 import 'package:mt_pyxel/components/common_searchbox.dart';
 import 'package:mt_pyxel/components/content.dart';
 import 'package:mt_pyxel/pages/content_page.dart';
+import 'package:mt_pyxel/pages/login_page.dart';
 import 'package:mt_pyxel/pages/post.dart';
 // structs
 import 'package:mt_pyxel/structs/content.dart';
@@ -84,7 +85,8 @@ class HomeState extends State<Home> {
             onPost: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (builder) => const PostPage())),
             onLearn: () {},
-            onUserName: () {}),
+            onUserName: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (builder) => const LogInPage()))),
         body: Center(
             child: SingleChildScrollView(
                 child: Column(
@@ -131,11 +133,8 @@ class HomeState extends State<Home> {
             // ここからコンテンツ
             SizedBox(
                 width: 950,
-                child: Wrap(
-                  runSpacing: 16,
-                  spacing: 45,
-                  children: [
-                    StreamBuilder<List<Content>>(
+                child: Wrap(runSpacing: 16, spacing: 45, children: [
+                  StreamBuilder<List<Content>>(
                       stream: fetchAllPosts(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -149,44 +148,40 @@ class HomeState extends State<Home> {
                         } else {
                           contents = snapshot.data!;
                           return SizedBox(
-                            width: 950,
-                            child: Wrap(
-                              runSpacing: 16,
-                              spacing: 45,
-                              children: contents.map((content) {
-                                return ContentBox(
-                                  image: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Image.network(content.image,
-                                          height: 180, width: 200)),
-                                  title: content.title,
-                                  likes: content.likes,
-                                  author: content.author,
-                                  comments: content.comments,
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) => ContentPage(
-                                        title: content.title,
-                                        author: content.author,
-                                        image: Image.network(content.image,
-                                            width: 650),
-                                        executeLink: content.executeLink,
-                                        likes: content.likes,
-                                        comments: content.comments,
-                                        desc: content.desc,
-                                      ),
-                                    ));
-                                  },
-                                );
-                              }).toList(),
-                            ),
-                          );
+                              width: 950,
+                              child: Wrap(
+                                runSpacing: 16,
+                                spacing: 45,
+                                children: contents.map((content) {
+                                  return ContentBox(
+                                      image: Padding(
+                                          padding: const EdgeInsets.all(8),
+                                          child: Image.network(content.image,
+                                              height: 180, width: 200)),
+                                      title: content.title,
+                                      likes: content.likes,
+                                      author: content.author,
+                                      comments: content.comments,
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) => ContentPage(
+                                            title: content.title,
+                                            author: content.author,
+                                            image: Image.network(content.image,
+                                                width: 650),
+                                            executeLink: content.executeLink,
+                                            likes: content.likes,
+                                            comments: content.comments,
+                                            desc: content.desc,
+                                          ),
+                                        ));
+                                      });
+                                }).toList(),
+                              ));
                         }
-                      },
-                    )
-                  ],
-                )),
+                      })
+                ])),
             // ここまでコンテンツ
 
             const SizedBox(height: 64),

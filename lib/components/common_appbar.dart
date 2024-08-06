@@ -38,7 +38,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
           AppBarLinkButton(onPressed: onLearn, label: "Learn"),
           const Expanded(child: SizedBox()),
           TextButton(
-              onPressed: () {},
+              //onPressed: () {},
+              onPressed: onUserName,
               //child: Text(userName,
               child: Text(userName,
                   style: TextStyle(

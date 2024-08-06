@@ -1,6 +1,7 @@
 // packages
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mt_pyxel/components/common_bottombar.dart';
 // components
 import 'package:mt_pyxel/components/page_title.dart';
 import 'package:mt_pyxel/components/singleline_textfield.dart';
@@ -22,7 +23,8 @@ class LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Scaffold(
+        body: Column(
       children: [
         const SizedBox(height: 64),
         const PageTitle(title: "SignIn / SignUp"),
@@ -76,7 +78,8 @@ class LogInPageState extends State<LogInPage> {
                     fontSize: 48,
                     color: Theme.of(context).colorScheme.onPrimary))),
         const SizedBox(height: 32),
+        const CommonBottomBar()
       ],
-    );
+    ));
   }
 }
