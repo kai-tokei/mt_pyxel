@@ -87,8 +87,18 @@ class HomeState extends State<Home> {
         appBar: CommonAppBar(
           userName: auth.currentUser?.email ?? "SignIn",
           onAbout: () => setState(() {}),
-          onPost: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (builder) => const PostPage())),
+          onPost: () {
+            auth.authStateChanges().listen((User? user) {
+              if (user == null) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("User is currently signed out!",
+                        style: TextStyle(fontSize: 32))));
+              } else {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (builder) => const PostPage()));
+              }
+            });
+          },
           onLearn: () =>
               html.window.open('https://github.com/kitao/pyxel', 'new tab'),
           onUserName: () => Navigator.of(context)

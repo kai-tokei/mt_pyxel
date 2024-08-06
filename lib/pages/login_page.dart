@@ -73,13 +73,13 @@ class LogInPageState extends State<LogInPage> {
                           style: TextStyle(fontSize: 32)),
                       duration: Duration(seconds: 10),
                     ));
+                    Navigator.of(context).pop();
                   } catch (e) {
                     debugPrint(e.toString());
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Failed to certify: $e')),
                     );
                   }
-                  Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -102,17 +102,15 @@ class LogInPageState extends State<LogInPage> {
                         email: mailAddress, password: password);
                     debugPrint("Sign In");
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Sign In successful!",
-                          style: TextStyle(fontSize: 32)),
-                      duration: Duration(seconds: 10),
-                    ));
+                        content: Text("Sign In successful!",
+                            style: TextStyle(fontSize: 32))));
+                    Navigator.of(context).pop();
                   } catch (e) {
                     debugPrint(e.toString());
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Failed to certify: $e')),
-                    );
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("Failed to certify: $e",
+                            style: TextStyle(fontSize: 32))));
                   }
-                  Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
