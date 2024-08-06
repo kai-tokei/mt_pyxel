@@ -7,7 +7,9 @@ import 'package:mt_pyxel/components/page_title.dart';
 import 'package:mt_pyxel/components/singleline_textfield.dart';
 
 class LogInPage extends StatefulWidget {
-  const LogInPage({super.key});
+  const LogInPage({super.key, required this.auth});
+
+  final FirebaseAuth auth;
 
   @override
   State<LogInPage> createState() => LogInPageState();
@@ -18,13 +20,11 @@ class LogInPageState extends State<LogInPage> {
   String mailAddress = "";
   String password = "";
 
-  // auth系
-  final _auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
       children: [
         const SizedBox(height: 64),
         const PageTitle(title: "SignIn / SignUp"),
@@ -53,17 +53,30 @@ class LogInPageState extends State<LogInPage> {
         ElevatedButton(
             onPressed: () async {
               try {
-                await _auth.signInWithEmailAndPassword(
+                await widget.auth.signInWithEmailAndPassword(
                     email: mailAddress, password: password);
                 debugPrint("Sign In");
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Sign In successful!",
+                      style: TextStyle(fontSize: 32)),
+                  duration: Duration(seconds: 10),
+                ));
               } catch (e) {
                 debugPrint(e.toString());
                 try {
-                  await _auth.createUserWithEmailAndPassword(
+                  await widget.auth.createUserWithEmailAndPassword(
                       email: mailAddress, password: password);
                   debugPrint("Sign Up");
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Sign Up successful!",
+                        style: TextStyle(fontSize: 32)),
+                    duration: Duration(seconds: 10),
+                  ));
                 } catch (e) {
                   debugPrint(e.toString());
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Failed to certify: $e')),
+                  );
                 }
               }
             },
@@ -80,6 +93,6 @@ class LogInPageState extends State<LogInPage> {
         const SizedBox(height: 32),
         const CommonBottomBar()
       ],
-    ));
+    )));
   }
 }

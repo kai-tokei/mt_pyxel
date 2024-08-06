@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // components
 import 'package:mt_pyxel/components/category_selector.dart';
 import 'package:mt_pyxel/components/common_appbar.dart';
@@ -41,6 +42,8 @@ class HomeState extends State<Home> {
   int pageSize = 5;
   int contentSize = 6;
 
+  final auth = FirebaseAuth.instance;
+
   List<Content> contents = [];
 
   List<String> generatePageList(int pageSize) {
@@ -81,12 +84,13 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CommonAppBar(
-            onAbout: () {},
-            onPost: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (builder) => const PostPage())),
-            onLearn: () {},
-            onUserName: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (builder) => const LogInPage()))),
+          onAbout: () {},
+          onPost: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (builder) => const PostPage())),
+          onLearn: () {},
+          onUserName: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (builder) => LogInPage(auth: auth))),
+        ),
         body: Center(
             child: SingleChildScrollView(
                 child: Column(

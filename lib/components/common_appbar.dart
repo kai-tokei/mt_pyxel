@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // components
 import 'package:mt_pyxel/components/appbar_link_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommonAppBar({
@@ -20,8 +21,6 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _displayName = "";
-
     return AppBar(
       automaticallyImplyLeading: false,
       title: SingleChildScrollView(
@@ -38,9 +37,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
           AppBarLinkButton(onPressed: onLearn, label: "Learn"),
           const Expanded(child: SizedBox()),
           TextButton(
-              //onPressed: () {},
               onPressed: onUserName,
-              //child: Text(userName,
               child: Text(userName,
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onSecondary,
