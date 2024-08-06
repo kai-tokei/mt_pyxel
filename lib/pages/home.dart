@@ -46,6 +46,7 @@ class HomeState extends State<Home> {
   final auth = FirebaseAuth.instance;
 
   List<Content> contents = [];
+  String searchQuery = "";
 
   List<String> generatePageList(int pageSize) {
     List<String> pageList = [];
@@ -80,6 +81,16 @@ class HomeState extends State<Home> {
         return content;
       }).toList();
     });
+  }
+
+  List<Content> filterContents(List<Content> allContents) {
+    return allContents.where((content) {
+      final matchesCategory =
+          categoryIndex == 0 || content.kind == categories[categoryIndex];
+      final matchesSearchQuery = searchQuery.isEmpty ||
+          content.title.toLowerCase().contains(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearchQuery;
+    }).toList();
   }
 
   @override
@@ -146,7 +157,10 @@ class HomeState extends State<Home> {
                     categorySize: 4,
                   ),
                   const Expanded(child: SizedBox()),
-                  CommonSearchBox(onChanged: (v) {})
+                  CommonSearchBox(
+                      onChanged: (v) => setState(() {
+                            searchQuery = v;
+                          }))
                 ])),
             const SizedBox(height: 64),
 
@@ -166,7 +180,7 @@ class HomeState extends State<Home> {
                             snapshot.data!.isEmpty) {
                           return const Text('No data available');
                         } else {
-                          contents = snapshot.data!;
+                          contents = filterContents(snapshot.data!);
                           return SizedBox(
                               width: 950,
                               child: Wrap(
