@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mt_pyxel/structs/content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:html' as html;
 // components
@@ -86,6 +87,39 @@ class ContentPageState extends State<ContentPage> {
     }
   }
 
+  Future<void> deletePost() async {
+    try {
+      // Firestoreからドキュメントを削除
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(widget.content.id)
+          .delete();
+
+      // Storageから画像を削除
+      if (widget.content.image.isNotEmpty) {
+        final ref = FirebaseStorage.instance.refFromURL(widget.content.image);
+        await ref.delete();
+      }
+
+      // 成功メッセージの表示
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Post deleted successfully!",
+              style: TextStyle(fontSize: 32)),
+        ));
+        Navigator.of(context).pop();
+      }
+    } catch (e) {
+      // エラーメッセージの表示
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to delete post: $e',
+              style: const TextStyle(fontSize: 32)),
+        ),
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -111,7 +145,7 @@ class ContentPageState extends State<ContentPage> {
                   color: Theme.of(context).colorScheme.secondary)),
           const SizedBox(width: 32),
           IconButton(
-              onPressed: () {},
+              onPressed: deletePost,
               icon: Image.asset('images/trashbox.png', width: 32)),
           const SizedBox(width: 84),
         ],
