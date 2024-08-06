@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 // components
 import 'package:mt_pyxel/components/appbar_link_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommonAppBar({

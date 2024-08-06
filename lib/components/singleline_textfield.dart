@@ -5,10 +5,12 @@ class SinglelineTextField extends StatelessWidget {
     super.key,
     required this.onChanged,
     this.width = 500,
+    this.obsecureText = false,
   });
 
   final Function(dynamic) onChanged;
   final double width;
+  final bool obsecureText;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +18,9 @@ class SinglelineTextField extends StatelessWidget {
         width: width,
         child: TextField(
             onChanged: onChanged,
+            obscureText: obsecureText,
             style: const TextStyle(fontSize: 20),
-            maxLength: 84,
+            maxLength: 512,
             decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(

@@ -20,12 +20,13 @@ class PostPage extends StatefulWidget {
 
 class PostPageState extends State<PostPage> {
   List<String> categories = [
+    "All",
     "Games",
     "Tech",
     "Tools",
     "Paints",
     "Musics",
-    "Users"
+    "Others"
   ];
 
   int categoryIndex = 0;

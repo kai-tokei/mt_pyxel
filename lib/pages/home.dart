@@ -28,7 +28,7 @@ class HomeState extends State<Home> {
     "Tools",
     "Paints",
     "Musics",
-    "others"
+    "Others"
   ];
 
   List<String> sortCategories = [
@@ -84,6 +84,7 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CommonAppBar(
+          userName: auth.currentUser?.uid.toString() ?? "SignIn",
           onAbout: () {},
           onPost: () => Navigator.of(context)
               .push(MaterialPageRoute(builder: (builder) => const PostPage())),

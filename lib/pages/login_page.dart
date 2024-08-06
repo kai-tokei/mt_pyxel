@@ -43,6 +43,7 @@ class LogInPageState extends State<LogInPage> {
         const Text("Password", style: TextStyle(fontSize: 36)),
         const SizedBox(height: 8),
         SinglelineTextField(
+            obsecureText: true,
             onChanged: (v) => setState(() {
                   password = v;
                 })),
@@ -79,6 +80,7 @@ class LogInPageState extends State<LogInPage> {
                   );
                 }
               }
+              Navigator.of(context).pop();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
