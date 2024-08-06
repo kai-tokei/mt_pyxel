@@ -171,32 +171,47 @@ class HomeState extends State<Home> {
                               child: Wrap(
                                 runSpacing: 16,
                                 spacing: 45,
-                                children: contents.map((content) {
-                                  return ContentBox(
-                                      image: Padding(
-                                          padding: const EdgeInsets.all(8),
-                                          child: Image.network(content.image,
-                                              height: 180, width: 200)),
-                                      title: content.title,
-                                      likes: content.likes,
-                                      author: content.author,
-                                      comments: content.comments,
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .push(MaterialPageRoute(
-                                          builder: (context) => ContentPage(
-                                            title: content.title,
-                                            author: content.author,
-                                            image: Image.network(content.image,
-                                                width: 650),
-                                            executeLink: content.executeLink,
-                                            likes: content.likes,
-                                            comments: content.comments,
-                                            desc: content.desc,
-                                          ),
-                                        ));
-                                      });
-                                }).toList(),
+                                children: contents
+                                    .where((content) {
+                                      // カテゴリーフィルタリング
+                                      if (categoryIndex == 0) {
+                                        return true; // "All" カテゴリーの場合は全て表示
+                                      }
+                                      return content.kind ==
+                                          categories[categoryIndex];
+                                    })
+                                    .toList() // リストに変換して並べ替えを可能にする
+                                    .map((content) {
+                                      return ContentBox(
+                                          image: Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: Image.network(
+                                                  content.image,
+                                                  height: 180,
+                                                  width: 200)),
+                                          title: content.title,
+                                          likes: content.likes,
+                                          author: content.author,
+                                          comments: content.comments,
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                              builder: (context) => ContentPage(
+                                                title: content.title,
+                                                author: content.author,
+                                                image: Image.network(
+                                                    content.image,
+                                                    width: 650),
+                                                executeLink:
+                                                    content.executeLink,
+                                                likes: content.likes,
+                                                comments: content.comments,
+                                                desc: content.desc,
+                                              ),
+                                            ));
+                                          });
+                                    })
+                                    .toList(),
                               ));
                         }
                       })

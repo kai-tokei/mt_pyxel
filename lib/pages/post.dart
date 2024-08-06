@@ -26,7 +26,6 @@ class PostPage extends StatefulWidget {
 
 class PostPageState extends State<PostPage> {
   List<String> categories = [
-    "All",
     "Games",
     "Tech",
     "Tools",
@@ -48,7 +47,7 @@ class PostPageState extends State<PostPage> {
     var bytes = utf8.encode(
         base64Encode(data)); // Convert image data to base64 and then to bytes
     var digest = sha256.convert(bytes);
-    return digest.toString();
+    return digest.toString() + DateTime.now().toString();
   }
 
   Future<void> pickImage() async {
