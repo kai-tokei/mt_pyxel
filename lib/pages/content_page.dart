@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mt_pyxel/structs/content.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:html' as html;
 // components
 // import 'package:mt_pyxel/components/comment.dart';
@@ -15,6 +17,81 @@ class ContentPage extends StatefulWidget {
 }
 
 class ContentPageState extends State<ContentPage> {
+  bool liked = false;
+
+  Future<void> incLikes() async {
+    final FirebaseFirestore db = FirebaseFirestore.instance;
+    final ref = db.collection('posts').doc(widget.content.id);
+    final User? user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Please Sign In!!', style: TextStyle(fontSize: 32))));
+      return;
+    }
+
+    final userId = user.uid;
+
+    return db.runTransaction((transaction) async {
+      final snapshot = await transaction.get(ref);
+
+      if (!snapshot.exists) {
+        throw Exception("Document does not exist!");
+      }
+
+      List<dynamic> likers = snapshot.data()?['likers'] ?? [];
+      int likes = snapshot.data()?['likes'] ?? 0;
+
+      if (!likers.contains(userId)) {
+        likers.add(userId);
+        likes += 1;
+        transaction.update(ref, {
+          'likes': likes,
+          'likers': likers,
+        });
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Like!!', style: TextStyle(fontSize: 32))));
+        setState(() {
+          widget.content.likes = likes;
+          liked = true;
+        });
+      } else {
+        likers.remove(userId);
+        likes -= 1;
+        transaction.update(ref, {
+          'likes': likes,
+          'likers': likers,
+        });
+        setState(() {
+          widget.content.likes = likes;
+          liked = true;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Cancel!!', style: TextStyle(fontSize: 32))));
+      }
+    });
+  }
+
+  Future<void> _getLikes() async {
+    final FirebaseFirestore db = FirebaseFirestore.instance;
+    final ref = db.collection('posts').doc(widget.content.id);
+    final snapshot = await ref.get();
+
+    if (snapshot.exists) {
+      setState(() {
+        widget.content.likes = snapshot.data()?['likes'] ?? 0;
+        List<dynamic> likers = snapshot.data()?['likers'] ?? [];
+        liked = likers.contains(FirebaseAuth.instance.currentUser?.uid);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getLikes();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +125,7 @@ class ContentPageState extends State<ContentPage> {
           children: [
             IconButton(
                 icon: Image.asset("images/heart.png", width: 38),
-                onPressed: () {}),
+                onPressed: incLikes),
             const SizedBox(width: 4),
             Text(widget.content.likes.toString(),
                 style: const TextStyle(fontSize: 28)),
