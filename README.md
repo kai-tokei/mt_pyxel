@@ -18,7 +18,7 @@ Pyxelで制作したゲームを投稿できるプラットフォームです。
 ## 実行方法
 リポジトリをクローンし、以下のコマンドで実行できます。
 
-\`\`\`bash
+```
 # リポジトリのクローン
 git clone https://github.com/kai-tokei/mt_pyxel.git
 cd mt_pyxel
@@ -28,7 +28,7 @@ flutter pub get
 
 # 実行
 flutter run
-\`\`\`
+```
 
 ## 制作について
 - 制作期間：2024年6-8月（約8週間）
